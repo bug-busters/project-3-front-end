@@ -1,0 +1,13 @@
+as a user i can view an index of products
+as a user i can view details on individual products
+
+as a user i can add products to my shopping cart
+as a user i can view my shopping cart
+as a user i can edit the quantity of items in my shopping cart
+as a user i can remove products from my shopping cart
+as a user i can check out products in my shopping cart
+as a user i can use stripe to pay for my products with a credit card
+as a user i can view my shopping cart for a certain amount of time before it expires
+
+as a user i can log in
+as a user i can log out
