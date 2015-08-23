@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/style.css">
   <link href='http://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:400,400italic,600,700,600italic,700italic' rel='stylesheet' type='text/css'>
 
 
 </head>
@@ -36,16 +37,71 @@
                 <a href="#">Shopping Cart</a>
             </li>
             <li>
-                <a href="#">Register/Login</a>
+              <!--   <a href="#">Register/Login</a> -->
+                <a class="btn btn-launch" data-toggle="modal" data-target="#loginModal">Register/Login</a>
             </li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->
     </div>
   <!-- /.container-fluid -->
-  <nav>
+  </nav>
 
+  <!-- LOGIN MODAL/FORM -->
+  <div class="text-center modal fade" id="loginModal" style="padding:50px 0">
+    <div class="login-logo">Login</div>
+    <div class="login-form-1">
+      <form id="login-form" class="text-left">
+        <div class="login-form-main-message"></div>
+        <div class="main-login-form">
+          <div class="login-group">
+            <div class="form-group">
+              <label for="lg_username" class="sr-only">Username</label>
+              <input type="text" id="lg_username" placeholder="username">
+            </div>
+            <div class="form-group">
+              <label for="lg_password" class="sr-only">Password</label>
+              <input type="password" id="lg_password" placeholder="password">
+            </div>
+          </div>
+          <button type="submit" data-dismiss="modal" class="login-button"><i class="fa fa-chevron-right"></i></button>
+        </div>
+        <div class="etc-login-form">
+          <p>new user? <a class="btn btn-launch" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">register</a><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></p>
+        </div>
+      </form>
+    </div>
+  </div>
 
+  <!-- REGISTRATION FORM -->
+  <div class="text-center modal fade" id="registerModal" style="padding:50px 0">
+    <div class="logo">Register</div>
+    <div class="login-form-1">
+      <form id="register-form" class="text-left">
+        <div class="login-form-main-message"></div>
+        <div class="main-login-form">
+          <div class="login-group">
+            <div class="form-group">
+              <label for="reg_fullname" class="sr-only">Full Name</label>
+              <input type="text" id="reg_fullname" placeholder="full name">
+            </div>
+            <div class="form-group">
+              <label for="reg_username" class="sr-only">Email address</label>
+              <input type="text" id="reg_username" placeholder="username">
+            </div>
+            <div class="form-group">
+              <label for="reg_password" class="sr-only">Password</label>
+              <input type="password" id="reg_password" placeholder="password">
+            </div>
+          </div>
+          <button type="submit" class="login-button"><i class="fa fa-chevron-right"></i></button>
+        </div>
+        <div class="etc-login-form">
+          <p>already have an account? <a class="btn btn-launch" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">login</a><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></p>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!--Header-->
   <header>
@@ -58,5 +114,7 @@
     </div>
   </header>
 
+  <script src="js/jquery-2.1.4.js"></script>
+  <script src="js/bootstrap.js"></script>
 </body>
 </html>
