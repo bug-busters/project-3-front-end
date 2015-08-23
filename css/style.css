@@ -39,6 +39,18 @@ p {
 .navbar-default .navbar-nav > li > a {
   color: #ef5092;
 }
+
+.navbar-default {
+  background-color: #66ccff;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+  color: #ed80b9;
+}
+
+.navbar-default .navbar-brand:hover {
+  color: #ed80b9;
+}
 /****************/
 
 
