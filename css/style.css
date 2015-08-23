@@ -2,6 +2,10 @@ h1 {
   font-family: 'Satisfy', cursive;
 }
 
+h2 {
+  font-family: 'Satisfy', cursive;
+}
+
 body {
   margin-top: 100px;
 }
@@ -14,7 +18,7 @@ p {
 /* navbar styles */
 .navbar-brand {
   font-family: 'Satisfy', cursive;
-  font-size: 60px;
+  font-size: 30px;
   color: #ef5092;
 }
 
@@ -50,6 +54,23 @@ p {
 
 .navbar-default .navbar-brand:hover {
   color: #ed80b9;
+}
+
+@media (min-width: 1000px) {
+  .navbar-header {
+    padding-bottom: 70px;
+    padding-top: 10px;
+  }
+
+  .navbar-nav {
+    padding-top: 40px;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+  .navbar-brand {
+    font-family: 'Satisfy', cursive;
+    font-size: 60px;
+    color: #ef5092;
+  }
 }
 /****************/
 
@@ -155,7 +176,7 @@ p {
   font-size: 20px;
 }
 .modal {
-  background-color: rgba(245, 245, 245, 0.5);
+  background-color: rgba(245, 245, 245, 0.7);
 }
 .close {
   font-size: 25px;
@@ -164,4 +185,32 @@ p {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 20px;
 }
+/*****************/
+
+
+/* shop styles */
+.page-header {
+  text-align: center;
+  padding-top: 10px;
+  color: #ef5092;
+}
+
+.cupcake-photo {
+  margin-bottom: -90px;
+}
+
+input[type=number] {
+  width: 50px;
+  border: solid 4px #66ccff;
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center;
+}
+
+button {
+  background-color: #ef5092;
+  border: solid 2px #ef5092;
+  font-family: 'Josefin Sans', sans-serif;
+  text-align: center;
+}
+
 /*****************/
