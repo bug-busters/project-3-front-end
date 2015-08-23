@@ -15,19 +15,29 @@ p {
 .navbar-brand {
   font-family: 'Satisfy', cursive;
   font-size: 60px;
+  color: #ef5092;
+}
+
+.navbar-default .navbar-brand {
+  color: #ef5092;
 }
 
 .navbar-header {
-  padding: 30px;
+  padding-bottom: 70px;
+  padding-top: 10px;
 }
 
 .navbar-nav {
-  padding: 30px;
+  padding-top: 40px;
   font-family: 'Josefin Sans', sans-serif;
 }
 
 .navbar-nav > li > a {
   font-size: 20px;
+}
+
+.navbar-default .navbar-nav > li > a {
+  color: #ef5092;
 }
 /****************/
 
