@@ -1,0 +1,20 @@
+h1 {
+  font-family: 'Satisfy', cursive;
+}
+
+.navbar-brand {
+  font-family: 'Satisfy', cursive;
+  font-size: 60px;
+}
+
+.navbar-header {
+  padding: 30px;
+}
+
+.navbar-nav {
+  padding: 30px;
+}
+
+.navbar-nav > li > a {
+  font-size: 20px;
+}
