@@ -8,7 +8,6 @@ $(document).ready(function () {
   // hide logout button until user is logged in
   $('#logout').hide();
 
-  // FIX ME -- need to match credentials keys to backend db
   // user register
   $('#register').on('click', function() {
     $.ajax(sa + '/signup', {
@@ -36,7 +35,6 @@ $(document).ready(function () {
   });
 
   // User Login
-
   $('#login').on('click', function() {
     $.ajax(sa + '/login', {
       contentType: 'application/json',
@@ -60,7 +58,6 @@ $(document).ready(function () {
     });
   });
 
-  // FIX ME -- need to match credentials keys to backend db
   // user log out
   $('#logout').on('click', function() {
     $.ajax(sa + '/logout', {
