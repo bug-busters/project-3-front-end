@@ -25,7 +25,7 @@ $(document).ready(function () {
       dataType: 'json',
       method: 'POST'
     }).done(function(data, textStatus, jqxhr){
-      //set token and store
+      simpleStorage.set('token', data.token();  //set token
       // automatically log user in when they register
       $('#logout').show();  // show logout button
       $('#login-register').hide();  // hide login button
@@ -50,7 +50,7 @@ $(document).ready(function () {
       dataType: 'json',
       method: 'POST'
     }).done(function(data, textStatus, jqxhr){
-      // set token and store
+      simpleStorage.set('token', data.token(); // set token
       // automatically log user in when they register
       $('#logout').show();  // show logout button
       $('#login-register').hide();  // hide login button
