@@ -84,6 +84,23 @@ $(document).ready(function () {
   // handlebars template for products index
   var productsIndexTemplate = Handlebars.compile($('#products-index-template').html());
 
+  // FIX ME
+  // load products on index.html
+  $.ajax(sa + '/products', {
+      contentType: 'application/json',
+      processData: false,
+      dataType: 'json',
+      method: 'GET'
+    }).done(function(data, textStatus, jqxhr){
+      console.log(data);
+      console.log(data.products);
+      var productsList = productsIndexTemplate({products: data.products});
+      $('#products-index').html(productsList);
+    }).fail(function(jqshr, textStatus, errorThrown){
+      console.log('products index failed');
+    });
+
+
   // handlebars template for shopping cart
   var cartTemplate = Handlebars.compile($('#cart-template').html());
 
