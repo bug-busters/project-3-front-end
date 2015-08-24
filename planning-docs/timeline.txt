@@ -1,2 +1,5 @@
 08/19/2015 17:30 meeting - discussion of users stories
 08/20/2015 16:10 meeting - discussion of database structure
+08/23/2015 - group members work individually on back and front ends
+08/24/2015 11:31 meeting - discussion of to-do list and review database structure
+08/24/2015 - group members work individually on back and front ends
