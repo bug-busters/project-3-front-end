@@ -121,19 +121,31 @@
         <h2 class="page-header">Stop Starring and Buy Your CupCakes!</h2>
       </div>
       <div class="col-lg-12 text-center cart-table">
-        -----Table with cart information------
-        <br>
-        -----Each product should have the following-----
-        <script id="product-index" type="text/x-handlebars-template">
-        {{#each products}}
-          <li>
-            <h3>{{title}}</h3>
-            <h4>{{quantity}} + " at " + {{price}} + " each."</h4>
-          </li>
-        {{/each}}
-        </script>
-        <input type="number" id="qt-stars" placeholder="QT"></input>
-        total price
+        <!-- Handlebars Template -->
+        <script id="cart-template" type="text/x-handlebars-template">
+        <table>
+          <thead>
+            <th>Cupcake</th>
+            <ht>Quantity</th>
+            <ht>Price</th>
+            <th>Subtotal</th>
+            <th>Total</th>
+          </thead>
+          <tbody>
+            {{#each products}}
+            <tr>
+              <td>{{title}}</td>
+              <td>{{quantity}}</td>
+              <td>{{price}}</td>
+              <td>{{subtotal}}</td>
+            {{/each}}
+              <td></td>
+              <td></td>
+              <td>{{total}}</td>
+            </tr>
+          </tbody>
+        </table>
+        </script> <!--end Handlebars-->
       </div>
       <div class="pull-right">
         total price
