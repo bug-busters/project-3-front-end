@@ -80,5 +80,16 @@ $(document).ready(function () {
   });
 
 
+
+  // handlebars template for products index
+  var productsIndexTemplate = Handlebars.compile($('#products-index-template').html());
+
+  // handlebars template for shopping cart
+  var cartTemplate = Handlebars.compile($('#cart-template').html());
+
+  // handlebars template for order history
+  var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
+
+
 });
 
