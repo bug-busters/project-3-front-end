@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
   // url root
-  var sa = 'http://localhost:3000';
+  var sa = 'http://localhost:8000';
 
   // hide logout button until user is logged in
   $('#logout').hide();
@@ -16,10 +16,12 @@ $(document).ready(function () {
       processData: false,
       data: JSON.stringify({
         credentials: {
-          firstname: $('#first-name').val(),
-          lastname: $('#last-name').val(),
+          firstName: $('#first-name').val(),
+          lastName: $('#last-name').val(),
           email: $('#reg_email').val(),
-          password: $('#reg_password').val()
+          password: $('#reg_password').val(),
+          is_admin: false,
+          phone_number: $('#phone')
         }
       }),
       dataType: 'json',
