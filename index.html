@@ -138,24 +138,25 @@
 			<div class="col-lg-12">
 				<h2 class="page-header">a balanced diet is having a cupcake in each hand</h2>
 			</div>
-
-			<!-- Handlebars Template -->
-			<script id="products-index-template" type="text/x-handlebars-template">
-			{{#each products}}
-			<div class="col-lg-4 col-sm-6 text-center">
-				<img src={{image}} class="cupcake-photo">
-				<h3>{{title}}</h3>
-				<p>{{description}}</p>
-				<h3>
-					<small>${{price}}</small>
-				</h3>
-				<input type="number" id="qt-vanilla-js" placeholder="QT"></input>
-				<button id="purchase">Buy</button>
-				<button id="checkout" href="shopping-cart.html">Checkout</button>
+			<div id="products-index">
+				<!-- Handlebars Template -->
+				<script id="products-index-template" type="text/x-handlebars-template">
+				{{#each products}}
+				<div class="col-lg-4 col-sm-6 text-center">
+					<img src={{image}} class="cupcake-photo">
+					<h3>{{title}}</h3>
+					<p>{{description}}</p>
+					<h3>
+						<small>${{price}}</small>
+					</h3>
+					<input type="number" id="qt-vanilla-js" placeholder="QT"></input>
+					<button id="purchase">Buy</button>
+					<button id="checkout" href="shopping-cart.html">Checkout</button>
+				</div>
+				{{/each}}
+				</script>
+				<!-- End Handlebars Template -->
 			</div>
-			{{/each}}
-			</script>
-			<!-- End Handlebars Template -->
 
 			<div class="col-lg-4 col-sm-6 text-center">
 				<img src="img/2.jpg" class="cupcake-photo">
