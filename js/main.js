@@ -28,7 +28,8 @@ $(document).ready(function () {
       //set token and store
       // automatically log user in when they register
       $('#logout').show();  // show logout button
-      $('#login-register').hide();
+      $('#login-register').hide();  // hide login button
+      $('#order-hist-msg').hide();  // hide prompt to login
     }).fail(function(jqshr, textStatus, errorThrown){
       alert('Login failed. Please use correct email and password.');
     });
@@ -52,7 +53,8 @@ $(document).ready(function () {
       // set token and store
       // automatically log user in when they register
       $('#logout').show();  // show logout button
-      $('#login-register').hide();
+      $('#login-register').hide();  // hide login button
+      $('#order-hist-msg').hide();  // hide prompt to login
     }).fail(function(jqshr, textStatus, errorThrown){
       console.log('login failed');
       alert('Login failed. Please make sure your email and password are correct.');
