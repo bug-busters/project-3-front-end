@@ -33,7 +33,7 @@ $(document).ready(function () {
       $('#login-register').hide();  // hide login button
       $('#order-hist-msg').hide();  // hide prompt to login
     }).fail(function(jqshr, textStatus, errorThrown){
-      alert('Login failed. Please use correct email and password.');
+      alert('Register failed. Please use correct email and password.');
     });
   });
 
