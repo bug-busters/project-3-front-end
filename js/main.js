@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
   // url root
-  var sa = 'http://localhost:3000';
+  var sa = 'http://localhost:8000';
 
   // hide logout button until user is logged in
   $('#logout').hide();
@@ -24,7 +24,7 @@ $(document).ready(function () {
       dataType: 'json',
       method: 'POST'
     }).done(function(data, textStatus, jqxhr){
-      simpleStorage.set('token', data.token();  //set token
+      simpleStorage.set('token', data.token());  //set token
       // automatically log user in when they register
       $('#logout').show();  // show logout button
       $('#login-register').hide();  // hide login button
@@ -48,7 +48,7 @@ $(document).ready(function () {
       dataType: 'json',
       method: 'POST'
     }).done(function(data, textStatus, jqxhr){
-      simpleStorage.set('token', data.token();  //set token
+      simpleStorage.set('token', data.token());  //set token
       // automatically log user in when they register
       $('#logout').show();  // show logout button
       $('#login-register').hide();  // hide login button
