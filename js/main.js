@@ -31,6 +31,31 @@ $(document).ready(function () {
       $('#login-register').hide();  // hide login button
       $('#order-hist-msg').hide();  // hide prompt to login
     }).fail(function(jqshr, textStatus, errorThrown){
+      alert('Registration failed. Please use correct email and password.');
+    });
+  });
+
+  // User Login
+
+  $('#login').on('click', function() {
+    $.ajax(sa + '/login', {
+      contentType: 'application/json',
+      processData: false,
+      data: JSON.stringify({
+        credentials: {
+          email: $('#lg_email').val(),
+          password: $('#lg_password').val()
+        }
+      }),
+      dataType: 'json',
+      method: 'POST'
+    }).done(function(data, textStatus, jqxhr){
+      simpleStorage.set('token', data.token();  //set token
+      // automatically log user in when they register
+      $('#logout').show();  // show logout button
+      $('#login-register').hide();  // hide login button
+      $('#order-hist-msg').hide();  // hide prompt to login
+    }).fail(function(jqshr, textStatus, errorThrown){
       alert('Login failed. Please use correct email and password.');
     });
   });
