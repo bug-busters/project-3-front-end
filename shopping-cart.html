@@ -124,6 +124,14 @@
         -----Table with cart information------
         <br>
         -----Each product should have the following-----
+        <script id="product-index" type="text/x-handlebars-template">
+        {{#each products}}
+          <li>
+            <h3>{{title}}</h3>
+            <h4>{{quantity}} + " at " + {{price}} + " each."</h4>
+          </li>
+        {{/each}}
+        </script>
         <input type="number" id="qt-stars" placeholder="QT"></input>
         total price
       </div>
