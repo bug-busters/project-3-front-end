@@ -36,28 +36,24 @@ $(document).ready(function () {
   });
 
   // FIX ME -- need to match credentials keys to backend db
-  // user login
-  $('#login').on('click', function() {
-    $.ajax(sa + '/login', {
+  // user log out
+  $('#logout').on('click', function() {
+    $.ajax(sa + '/logout', {
       contentType: 'application/json',
       processData: false,
-      data: JSON.stringify({
-        credentials: {
-          email: $('#lg_email').val(),
-          password: $('#lg_password').val()
-        }
-      }),
+      headers: {
+        Authorization: 'Token token=' + simpleStorage.get('token')
+      },
       dataType: 'json',
       method: 'POST'
     }).done(function(data, textStatus, jqxhr){
-      simpleStorage.set('token', data.token(); // set token
+      simpleStorage.deleteKey('token'); // delete token
       // automatically log user in when they register
-      $('#logout').show();  // show logout button
-      $('#login-register').hide();  // hide login button
-      $('#order-hist-msg').hide();  // hide prompt to login
+      $('#logout').hide();  // hide logout button
+      $('#login-register').show();  // show login button
+      $('#order-hist-msg').show();  // show prompt to login
     }).fail(function(jqshr, textStatus, errorThrown){
-      console.log('login failed');
-      alert('Login failed. Please make sure your email and password are correct.');
+      console.log('logout failed');
     });
   });
 
