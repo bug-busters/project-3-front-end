@@ -18,6 +18,28 @@ $(document).ready(function() {
 		}
 	});
 
+	$('#tester').on('click', function(event) {
+		event.preventDefault();
+
+		$.ajax(sa + '/cart/' + cartJSON.user_id, {
+			method: 'get',
+			contentType: 'application/json',
+			processData: false,
+			dataType: 'json',
+			headers: {
+					user_id: cartJSON.user_id,
+			}
+		})
+		.done(function(response) {
+			console.log("============executed");
+			console.log(response);
+		})
+		.fail(function(response) {
+			console.log("==============failed");
+			console.error(response);
+		})
+	});
+
 	$('#testbutton').on('click', function(event) {
 		event.preventDefault();
 
