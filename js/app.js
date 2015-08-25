@@ -4,47 +4,53 @@
 var sa = 'http://localhost:8000';
 
 $(document).ready(function() {
+	$.ajaxSetup({
+		xhrFields : {
+			withCredentials : true
+		}
+	});
+
 	// user register
-	$('#register').on('click', function() {
+	$('#register').on('click', function(e) {
+		console.log('signup btn clicked');
 		$.ajax(sa + '/signup', {
 			contentType: 'application/json',
 			processData: false,
 			data: JSON.stringify({
-				credentials: {
-					firstname: $('#first-name').val(),
-					lastname: $('#last-name').val(),
-					email: $('#reg_email').val(),
-					password: $('#reg_password').val()
-				}
+				firstname: $('#first-name').val(),
+				lastname: $('#last-name').val(),
+				email: $('#reg_email').val(),
+				password: $('#reg_password').val(),
+				phone_number: $('#phone').val(),
+				is_admin: false
 			}),
-			dataType: 'json',
 			method: 'POST'
 		}).done(function(data, textStatus, jqxhr) {
-			simpleStorage.set('token', data.token()); //set token
 			// automatically log user in when they register
 			$('#logout').show(); // show logout button
 			$('#login-register').hide(); // hide login button
 			$('#order-hist-msg').hide(); // hide prompt to login
+			console.log("Register successful.");
 		}).fail(function(jqshr, textStatus, errorThrown) {
+			console.log(jqshr);
 			alert('Registration failed. Please use correct email and password.');
 		});
+		e.preventDefault();
 	});
 
 	// User Login
 	$('#login').on('click', function() {
+		console.log('login btn clicked');
 		$.ajax(sa + '/login', {
 			contentType: 'application/json',
 			processData: false,
 			data: JSON.stringify({
-				credentials: {
-					email: $('#lg_email').val(),
-					password: $('#lg_password').val()
-				}
+				email: $('#lg_email').val(),
+				password: $('#lg_password').val()
 			}),
-			dataType: 'json',
 			method: 'POST'
 		}).done(function(data, textStatus, jqxhr) {
-			simpleStorage.set('token', data.token()); //set token
+			console.warn("login successful");
 			// automatically log user in when they register
 			$('#logout').show(); // show logout button
 			$('#login-register').hide(); // hide login button
@@ -88,7 +94,7 @@ $(document).ready(function() {
 		var productsList = productsIndexTemplate({
 			products: data
 		});
-		
+
 		$('#products-index').html(productsList);
 	}).fail(function(jqshr, textStatus, errorThrown) {
 		console.log('products index failed');
