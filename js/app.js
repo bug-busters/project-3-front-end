@@ -99,6 +99,23 @@ $(document).ready(function() {
 		console.log('products index failed');
 	});
 
+	$('#testbutton').on('click', function(event) {
+		event.preventDefault();
+
+		$.ajax(sa + '/cart', {
+			contentType: 'application/json',
+			processData: false,
+			dataType: 'json',
+			method: 'POST'
+		})
+		.done(function(response) {
+
+		})
+		.fail(function(response) {
+
+		});
+	});
+
 	// handlebars template for products index
 	var productsIndexTemplate = Handlebars.compile($('#products-index-template').html());
 
