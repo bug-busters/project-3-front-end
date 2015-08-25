@@ -1,11 +1,10 @@
 'use strict';
-
 // url root
 var sa = 'http://localhost:8000';
 
 $(document).ready(function() {
 	// user register
-	$('#register').on('click', function() {
+	$('#register').on('click', function(event) {
 		$.ajax(sa + '/signup', {
 			contentType: 'application/json',
 			processData: false,
@@ -88,8 +87,14 @@ $(document).ready(function() {
 		var productsList = productsIndexTemplate({
 			products: data
 		});
-		
+
 		$('#products-index').html(productsList);
+
+		$('.purchase').on('click', function() {
+			var qt = $(this).prev('input').val();
+			$(this).prev('input').val(++qt);
+		});
+
 	}).fail(function(jqshr, textStatus, errorThrown) {
 		console.log('products index failed');
 	});
