@@ -3,6 +3,12 @@
 var sa = 'http://localhost:8000';
 
 $(document).ready(function() {
+	if (!simpleStorage.get('token')) {
+		$('#logout').hide(); // show logout button
+		$('#login-register').show(); // hide login button
+		$('#order-hist-msg').hide(); // hide prompt to login
+	}
+
 	// user register
 	$('#register').on('click', function(event) {
 		$.ajax(sa + '/signup', {
@@ -21,9 +27,6 @@ $(document).ready(function() {
 		}).done(function(data, textStatus, jqxhr) {
 			simpleStorage.set('token', data.token()); //set token
 			// automatically log user in when they register
-			$('#logout').show(); // show logout button
-			$('#login-register').hide(); // hide login button
-			$('#order-hist-msg').hide(); // hide prompt to login
 		}).fail(function(jqshr, textStatus, errorThrown) {
 			alert('Registration failed. Please use correct email and password.');
 		});
@@ -45,9 +48,6 @@ $(document).ready(function() {
 		}).done(function(data, textStatus, jqxhr) {
 			simpleStorage.set('token', data.token()); //set token
 			// automatically log user in when they register
-			$('#logout').show(); // show logout button
-			$('#login-register').hide(); // hide login button
-			$('#order-hist-msg').hide(); // hide prompt to login
 		}).fail(function(jqshr, textStatus, errorThrown) {
 			alert('Login failed. Please use correct email and password.');
 		});
@@ -66,9 +66,6 @@ $(document).ready(function() {
 		}).done(function(data, textStatus, jqxhr) {
 			simpleStorage.deleteKey('token'); // delete token
 			// automatically log user in when they register
-			$('#logout').hide(); // hide logout button
-			$('#login-register').show(); // show login button
-			$('#order-hist-msg').show(); // show prompt to login
 		}).fail(function(jqshr, textStatus, errorThrown) {
 			console.log('logout failed');
 		});
@@ -83,6 +80,11 @@ $(document).ready(function() {
 		method: 'GET'
 	}).done(function(data, textStatus, jqxhr) {
 		console.log(data);
+		data.forEach(function(product) {
+			product.price.toFixed(2);
+			console.log(product.price.toFixed(2));
+		});
+
 		var productsList = productsIndexTemplate({
 			products: data
 		});
@@ -92,6 +94,10 @@ $(document).ready(function() {
 		$('.purchase').on('click', function() {
 			var qt = $(this).prev('input').val();
 			$(this).prev('input').val(++qt);
+			var sku = $(this).attr('id');
+			simpleStorage.set(sku, qt);
+			console.log(simpleStorage.get(sku));
+			console.log(simpleStorage.index());
 		});
 
 	}).fail(function(jqshr, textStatus, errorThrown) {
