@@ -141,19 +141,19 @@
 			<div id="products-index">
 				<!-- Handlebars Template -->
 				<script id="products-index-template" type="text/x-handlebars-template">
-				{{#each products}}
-				<div class="col-lg-4 col-sm-6 text-center">
-					<img src={{image}} class="cupcake-photo">
-					<h3>{{title}}</h3>
-					<p>{{description}}</p>
-					<h3>
-						<small>${{price}}</small>
-					</h3>
-					<input type="number" id="qt-vanilla-js" placeholder="QT"></input>
-					<button id="purchase">Buy</button>
-					<button id="checkout" href="shopping-cart.html">Checkout</button>
-				</div>
-				{{/each}}
+					{{#each products}}
+					<div class="col-lg-4 col-sm-6 text-center">
+						<img src={{image}} class="cupcake-photo">
+						<h3>{{title}}</h3>
+						<p>{{description}}</p>
+						<h3>
+							<small>${{price}}</small>
+						</h3>
+						<input type="number" id="qt-vanilla-js" placeholder="QT"></input>
+						<button id="purchase">Buy</button>
+						<button id="checkout" href="shopping-cart.html">Checkout</button>
+					</div>
+					{{/each}}
 				</script>
 				<!-- End Handlebars Template -->
 			</div>
@@ -243,10 +243,10 @@
 		<script src="js/lib/bootstrap.js" type="text/javascript"></script>
 		<!-- simpleStorage -->
 		<script src="js/lib/simpleStorage.js" type="text/javascript"></script>
+		<!-- RequireJS -->
+		<script data-main="js/main" src="js/lib/require.js" type="text/javascript"></script>
 		<!-- Custom JavaScript -->
-		<script src="js/main.js" type="text/javascript"></script>
-
-
+		<!-- Linked to main.js from RequireJS now -->
 	</body>
 
 </html>
