@@ -84,11 +84,9 @@ $(document).ready(function() {
 		method: 'GET'
 	}).done(function(data, textStatus, jqxhr) {
 		console.log(data);
-
 		var productsList = productsIndexTemplate({
 			products: data
 		});
-		
 		$('#products-index').html(productsList);
 	}).fail(function(jqshr, textStatus, errorThrown) {
 		console.log('products index failed');
@@ -102,4 +100,5 @@ $(document).ready(function() {
 
 	// handlebars template for order history
 	var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
+
 });
