@@ -2,16 +2,40 @@
 // url root
 var sa = 'http://localhost:8000';
 
+// Handlebars helper function for formatting currency.
+Handlebars.registerHelper('currency', function(price) {
+	return '$' + price.toFixed(2);
+});
+
 $(document).ready(function() {
+	$('#logout').hide();
+
 	$.ajaxSetup({
-		xhrFields : {
-			withCredentials : true
+		xhrFields: {
+			withCredentials: true
 		}
+	});
+
+	$('#testbutton').on('click', function(event) {
+		event.preventDefault();
+
+		$.ajax(sa + '/cart', {
+				contentType: 'application/json',
+				processData: false,
+				dataType: 'json',
+				method: 'POST'
+			})
+			.done(function(response) {
+
+			})
+			.fail(function(response) {
+
+			});
 	});
 
 	// user register
 	$('#register').on('click', function(e) {
-	$.ajax(sa + '/signup', {
+		$.ajax(sa + '/signup', {
 			contentType: 'application/json',
 			processData: false,
 			data: JSON.stringify({
@@ -28,7 +52,7 @@ $(document).ready(function() {
 			$('#logout').show(); // show logout button
 			$('#login-register').hide(); // hide login button
 			$('#order-hist-msg').hide(); // hide prompt to login
-			console.log("Register successful.");
+			console.log('Register successful.');
 		}).fail(function(jqshr, textStatus, errorThrown) {
 			console.log(jqshr);
 			alert('Registration failed. Please use correct email and password.');
@@ -48,7 +72,9 @@ $(document).ready(function() {
 			}),
 			method: 'POST'
 		}).done(function(data, textStatus, jqxhr) {
-			console.warn("login successful");
+			console.warn('login successful');
+			console.log(data);
+			simpleStorage.set('userid', data);
 			// automatically log user in when they register
 		}).fail(function(jqshr, textStatus, errorThrown) {
 			alert('Login failed. Please use correct email and password.');
@@ -101,23 +127,6 @@ $(document).ready(function() {
 		console.log('products index failed');
 	});
 
-	$('#testbutton').on('click', function(event) {
-		event.preventDefault();
-
-		$.ajax(sa + '/cart', {
-			contentType: 'application/json',
-			processData: false,
-			dataType: 'json',
-			method: 'POST'
-		})
-		.done(function(response) {
-
-		})
-		.fail(function(response) {
-
-		});
-	});
-
 	// handlebars template for products index
 	var productsIndexTemplate = Handlebars.compile($('#products-index-template').html());
 
@@ -126,5 +135,4 @@ $(document).ready(function() {
 
 	// handlebars template for order history
 	var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
-
 });
