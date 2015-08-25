@@ -8,6 +8,8 @@ Handlebars.registerHelper('currency', function(price) {
 });
 
 $(document).ready(function() {
+	var cartJSON = { products: {} };
+
 	$('#logout').hide();
 
 	$.ajaxSetup({
@@ -19,11 +21,15 @@ $(document).ready(function() {
 	$('#testbutton').on('click', function(event) {
 		event.preventDefault();
 
-		$.ajax(sa + '/cart', {
+		$.ajax(sa + '/cart/' + cartJSON.user_id, {
 				contentType: 'application/json',
 				processData: false,
 				dataType: 'json',
-				method: 'POST'
+				method: 'POST',
+				data: JSON.stringify(cartJSON.products),
+				headers: {
+					user_id: cartJSON.user_id,
+				}
 			})
 			.done(function(response) {
 
@@ -31,6 +37,7 @@ $(document).ready(function() {
 			.fail(function(response) {
 
 			});
+
 	});
 
 	// user register
@@ -74,7 +81,7 @@ $(document).ready(function() {
 		}).done(function(data, textStatus, jqxhr) {
 			console.warn('login successful');
 			console.log(data);
-			simpleStorage.set('userid', data);
+			simpleStorage.set('user_id', data);
 			// automatically log user in when they register
 		}).fail(function(jqshr, textStatus, errorThrown) {
 			alert('Login failed. Please use correct email and password.');
@@ -107,7 +114,7 @@ $(document).ready(function() {
 		dataType: 'json',
 		method: 'GET'
 	}).done(function(data, textStatus, jqxhr) {
-		console.log(data);
+		// console.log(data);
 		var productsList = productsIndexTemplate({
 			products: data
 		});
@@ -119,20 +126,49 @@ $(document).ready(function() {
 			$(this).prev('input').val(++qt);
 			var sku = $(this).attr('id');
 			simpleStorage.set(sku, qt);
-			console.log(simpleStorage.get(sku));
-			console.log(simpleStorage.index());
+			// console.log(simpleStorage.get(sku));
+			// console.log(simpleStorage.index());
+		});
+
+		$('.checkout').on('click', function() {
+			console.log('clicked');
+			console.log(cartJSON.user_id);
+			if (!cartJSON.user_id) {
+				$('#loginModal').modal('show');
+			}
+
+			var inputs = $('input[type=number]');
+			var skus = [];
+			var quantity = 0;
+
+			for (var i = 0; i < inputs.length; i++) {
+				skus.push(inputs[i].attributes.id.value);
+			}
+
+			skus.forEach(function(sku) {
+				quantity = $('input[id=' + sku + ']').val();
+				simpleStorage.set(sku, quantity);
+			});
+
+			simpleStorage.index().forEach(function(key) {
+				if (!isNaN(key)) {
+					cartJSON.products[key] = simpleStorage.get(key);
+				}
+			});
+
+			cartJSON.user_id = simpleStorage.get('user_id');
 		});
 
 	}).fail(function(jqshr, textStatus, errorThrown) {
 		console.log('products index failed');
 	});
 
-	// handlebars template for products index
+	// Handlebars template for products index.
 	var productsIndexTemplate = Handlebars.compile($('#products-index-template').html());
 
-	// handlebars template for shopping cart
+	// Handlebars template for shopping cart.
 	var cartTemplate = Handlebars.compile($('#cart-template').html());
 
-	// handlebars template for order history
+	// Handlebars template for order history.
 	var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
 });
