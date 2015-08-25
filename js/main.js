@@ -8,4 +8,4 @@ require.config({
 	deps: []
 });
 
-require(['main']);
+require(['app']);
