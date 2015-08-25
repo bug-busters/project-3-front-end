@@ -1,5 +1,4 @@
 'use strict';
-
 // url root
 var sa = 'http://localhost:8000';
 
@@ -12,8 +11,7 @@ $(document).ready(function() {
 
 	// user register
 	$('#register').on('click', function(e) {
-		console.log('signup btn clicked');
-		$.ajax(sa + '/signup', {
+	$.ajax(sa + '/signup', {
 			contentType: 'application/json',
 			processData: false,
 			data: JSON.stringify({
@@ -52,9 +50,6 @@ $(document).ready(function() {
 		}).done(function(data, textStatus, jqxhr) {
 			console.warn("login successful");
 			// automatically log user in when they register
-			$('#logout').show(); // show logout button
-			$('#login-register').hide(); // hide login button
-			$('#order-hist-msg').hide(); // hide prompt to login
 		}).fail(function(jqshr, textStatus, errorThrown) {
 			alert('Login failed. Please use correct email and password.');
 		});
@@ -73,9 +68,6 @@ $(document).ready(function() {
 		}).done(function(data, textStatus, jqxhr) {
 			simpleStorage.deleteKey('token'); // delete token
 			// automatically log user in when they register
-			$('#logout').hide(); // hide logout button
-			$('#login-register').show(); // show login button
-			$('#order-hist-msg').show(); // show prompt to login
 		}).fail(function(jqshr, textStatus, errorThrown) {
 			console.log('logout failed');
 		});
@@ -90,14 +82,40 @@ $(document).ready(function() {
 		method: 'GET'
 	}).done(function(data, textStatus, jqxhr) {
 		console.log(data);
-
 		var productsList = productsIndexTemplate({
 			products: data
 		});
 
 		$('#products-index').html(productsList);
+
+		$('.purchase').on('click', function() {
+			var qt = $(this).prev('input').val();
+			$(this).prev('input').val(++qt);
+			var sku = $(this).attr('id');
+			simpleStorage.set(sku, qt);
+			console.log(simpleStorage.get(sku));
+			console.log(simpleStorage.index());
+		});
+
 	}).fail(function(jqshr, textStatus, errorThrown) {
 		console.log('products index failed');
+	});
+
+	$('#testbutton').on('click', function(event) {
+		event.preventDefault();
+
+		$.ajax(sa + '/cart', {
+			contentType: 'application/json',
+			processData: false,
+			dataType: 'json',
+			method: 'POST'
+		})
+		.done(function(response) {
+
+		})
+		.fail(function(response) {
+
+		});
 	});
 
 	// handlebars template for products index
@@ -108,4 +126,5 @@ $(document).ready(function() {
 
 	// handlebars template for order history
 	var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
+
 });
