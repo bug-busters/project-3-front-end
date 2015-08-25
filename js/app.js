@@ -20,7 +20,7 @@ $(document).ready(function() {
 				email: $('#reg_email').val(),
 				password: $('#reg_password').val(),
 				phone_number: $('#phone').val(),
-				is_admin: false
+				is_admin: false //This needs to be removed and set automatically to false in the back end for security reasons in the back end. Users could edit this line in their console to true and mess with the web site.
 			}),
 			method: 'POST'
 		}).done(function(data, textStatus, jqxhr) {
