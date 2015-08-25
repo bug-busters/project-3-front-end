@@ -84,10 +84,11 @@ $(document).ready(function() {
 		method: 'GET'
 	}).done(function(data, textStatus, jqxhr) {
 		console.log(data);
-		console.log(data.products);
+
 		var productsList = productsIndexTemplate({
-			products: data.products
+			products: data
 		});
+		
 		$('#products-index').html(productsList);
 	}).fail(function(jqshr, textStatus, errorThrown) {
 		console.log('products index failed');
