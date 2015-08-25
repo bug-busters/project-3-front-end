@@ -80,11 +80,6 @@ $(document).ready(function() {
 		method: 'GET'
 	}).done(function(data, textStatus, jqxhr) {
 		console.log(data);
-		data.forEach(function(product) {
-			product.price.toFixed(2);
-			console.log(product.price.toFixed(2));
-		});
-
 		var productsList = productsIndexTemplate({
 			products: data
 		});
