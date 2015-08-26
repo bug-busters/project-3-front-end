@@ -64,9 +64,9 @@ var onChangeValue = function(element) {
 	localCart[sku] = qt;
 	//update database cart only if the user is logged in
 	if (simpleStorage.get('user_id')) {
-		if (data.hasCart === false) {
-				createCart();
-			}
+		if (simpleStorage.get('hasCart') === false) {
+			createCart();
+		}
 		updateCart();
 	}
 };
@@ -132,8 +132,9 @@ $(document).ready(function() {
 			$('#login-register').hide(); // hide login button
 			$('#order-hist-msg').hide(); // hide prompt to login
 			simpleStorage.set('user_id', data.user_id);
+			simpleStorage.set('hasCart', data.hasCart);
 			// create cart if user has no cart
-			if (data.hasCart === false) {
+			if (simpleStorage.get('hasCart') === false) {
 				createCart();
 			}
 		}).fail(function(jqshr, textStatus, errorThrown) {
@@ -170,7 +171,7 @@ $(document).ready(function() {
 		localCart[sku] = qt;
 		// simpleStorage.set(sku, qt);
 		if (simpleStorage.get('user_id')) {
-			if (data.hasCart === false) {
+			if (simpleStorage.get('hasCart') === false) {
 				createCart();
 			}
 			updateCart();
