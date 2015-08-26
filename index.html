@@ -22,7 +22,6 @@
 		<!-- Favicon icon -->
 		<link rel="shortcut icon" href="img/favicon.ico">
 
-
 	</head>
 	<body>
 		<nav class="navbar navbar-default navbar-fixed-top">
@@ -140,16 +139,17 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h2 class="page-header">a balanced diet is having a cupcake in each hand</h2>
-				<h2 class="page-header">
-					<button id="testbutton" style="color: white">order!</button>
-				</h2>
-				<h2 class="page-header">
-					<button id="getpagedata">test button: the revenge!</button>
-				</h2>
+        <div id="page"></div>
 			</div>
+		</div>
 
-			<div id="products-index">
-				<!-- Handlebars Template -->
+		<footer class="text-center">
+			<h2>
+				<small>Copyright © 2015 Bug Busters</small>
+				</h2>
+		</footer>
+
+		<!-- Products Handlebars Template -->
 				<script id="products-index-template" type="text/x-handlebars-template">
 					{{#each products}}
 					<div class="col-lg-4 col-sm-6 text-center">
@@ -159,22 +159,64 @@
 						<h3>
 							<small>{{currency price}}</small>
 						</h3>
-						<input type="number" id="{{sku}}" placeholder="QT" min="0" value="0"></input>
-						<button class="purchase" id="{{sku}}">Buy</button>
+				<input type="number" id="{{sku}}" placeholder="QT" min="0" value="0" onchange="onChangeValue()"></input>
+				<button class="buy" id="{{sku}}">Buy</button>
 						<button class="checkout" id="{{sku}}" href="shopping-cart.html">Checkout</button>
 					</div>
 					{{/each}}
 				</script>
 				<!-- End Handlebars Template -->
-			</div>
-		</div>
 
+		<!-- Cart Handlebars Template -->
+		<script id="cart-template" type="text/x-handlebars-template">
+			<table>
+				<thead>
+					<th>Cupcake</th>
+					<ht>Quantity</th>
+						<ht>Price</th>
+							<th>Subtotal</th>
+							<th>Total</th>
+				</thead>
+				<tbody>
+					{{#each products}}
+					<tr>
+						<td>{{title}}</td>
+						<td>{{quantity}}</td>
+						<td>${{price}}</td>
+						<td>${{subtotal}}</td>
+						{{/each}}
+						<td></td>
+						<td></td>
+						<td>${{total}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</script>
+		<!-- end Cart Handlebars-->
 
-		<footer class="text-center">
-			<h2>
-				<small>Copyright © 2015 Bug Busters</small>
-			</h2>
-		</footer>
+		<!-- Past Orders Handlebars Template -->
+		<script id="order-history-template" type="text/x-handlebars-template">
+			<table>
+				<thead>
+					<th>Cupcake</th>
+					<ht>Quantity</th>
+						<th>Total</th>
+				</thead>
+				<tbody>
+					{{#each products}}
+					<tr>
+						<td>{{title}}</td>
+						<td>{{quantity}}</td>
+						<td>${{subtotal}}</td>
+						{{/each}}
+						<td></td>
+						<td></td>
+						<td>${{total}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</script>
+		<!--end Past Orders Handlebars-->
 
 
 		<!-- JavaScript libraries -->
