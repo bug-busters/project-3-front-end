@@ -22,9 +22,37 @@ var createCart = function() {
 				console.log('Cart created');
 			})
 			.fail(function(response) {
-				console.erro(response);
+				console.error(response);
 			});
 	};
+
+var updateCart = function() {
+
+
+	$.ajax(sa + '/cart/' + simpleStorage.get('user_id'), {
+			contentType: 'application/json',
+			processData: false,
+			dataType: 'json',
+			method: 'PATCH',
+			data: simpleStorage.get('cart'),
+			headers: {
+				user_id: simpleStorage.get('user_id'),
+			}
+		})
+		.done(function(response) {
+			console.log('Cart updated');
+		})
+		.fail(function(response) {
+			console.error(response);
+		});
+};
+
+var onChangeValue = function() {
+	var qt = $(this).prev('input').val();
+	$(this).prev('input').val(++qt);
+	var sku = $(this).attr('id');
+	simpleStorage.set(sku, qt);
+}
 
 $(document).ready(function() {
 	var cartJSON = { products: {} };
@@ -77,6 +105,11 @@ $(document).ready(function() {
 			}),
 			method: 'POST'
 		}).done(function(data, textStatus, jqxhr) {
+			//TODO merge carts function
+			// Get cart from DB
+			// Compare with simpleStorage
+			// save the merged cart in simpleStorage cart
+
 			console.warn('login successful');
 			console.log('Data: ', data);
 			$('#logout').show(); // show logout button
@@ -114,11 +147,9 @@ $(document).ready(function() {
 
 	// populate simpleStorage cart
 	$('#products-index').on('click', '.purchase', function() {
-		console.log("purcgase clicked");
-		var qt = $(this).prev('input').val();
-		$(this).prev('input').val(++qt);
-		var sku = $(this).attr('id');
-		simpleStorage.set(sku, qt);
+		console.log("purchase clicked");
+		onChangeValue();
+		updateCart();
 	});
 
 	// prompt for login and update cart
@@ -138,6 +169,8 @@ $(document).ready(function() {
 
 		simpleStorage.set('cart', JSON.stringify(cart));
 		//console.log('simpleStorage.get("cart")', simpleStorage.get('cart'));
+
+		console.log(simpleStorage.get('cart'));
 
 		window.location.href = 'shopping-cart.html';
 
