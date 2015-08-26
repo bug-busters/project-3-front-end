@@ -139,6 +139,8 @@ $(document).ready(function() {
 		simpleStorage.set('cart', JSON.stringify(cart));
 		//console.log('simpleStorage.get("cart")', simpleStorage.get('cart'));
 
+		window.location.href = 'shopping-cart.html';
+
 	});
 
 
