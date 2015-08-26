@@ -61,13 +61,7 @@ var onChangeValue = function() {
   simpleStorage.set(sku, qt);
 };
 
-var mergeCarts = function() {
-
-};
-
-
 $(document).ready(function() {
-  var cartJSON = { products: {} };
 
   $('#logout').hide();
 
@@ -106,7 +100,7 @@ $(document).ready(function() {
   });
 
   // User Login
-  $('#login').on('click', function() {
+  $('#login').on('click', function(e) {
     console.log('login btn clicked');
     $.ajax(sa + '/login', {
             contentType: 'application/json',
@@ -130,20 +124,11 @@ $(document).ready(function() {
       simpleStorage.set('user_id', data);
       // automatically log user in when they register
     }).fail(function(jqshr, textStatus, errorThrown) {
-            alert('Login failed. Please use correct email and password.');
-    });
-      $('#login-register').hide(); // hide login button
-      $('#order-hist-msg').hide(); // hide prompt to login
-      console.log('Register successful.');
-      simpleStorage.set('user_id', data);
-    }).fail(function(jqshr, textStatus, errorThrown) {
       console.log(jqshr);
       alert('Registration failed. Please use correct email and password.');
     });
     e.preventDefault();
   });
-
-
 
   // user log out
   // TODO Check if they are logged in
@@ -163,11 +148,6 @@ $(document).ready(function() {
     });
   });
 
-  // Handlebars template for products index.
-  var productsIndexTemplate = Handlebars.compile($('#products-index-template').html());
-  console.log(productsIndexTemplate);
-
-
   // populate simpleStorage cart
   $('#products-index').on('click', '.purchase', function() {
     console.log("purchase clicked");
@@ -185,7 +165,6 @@ $(document).ready(function() {
 
     for (var i = 0; i < inputs.length; i++) {
       var sku = inputs[i].attributes.id.value;
-
       if (inputs[i].value > 0) {
         cart[sku] = $('input[id=' + sku + ']').val();
       }
@@ -197,76 +176,71 @@ $(document).ready(function() {
     console.log(simpleStorage.get('cart'));
 
     window.location.href = 'shopping-cart.html';
-
   });
 
-
-  // $('#testbutton').on('click', function(){
-  //   createCart();
-  //   console.log('textbutton clicked');
-  //   console.log(simpleStorage.get('user_id'));
-  // });
-
-  // $('#getpagedata').on('click', function(){
-  //   updateCart();
-  // });
-
-
-
-  // load products on index.html
-  $.ajax(sa + '/products', {
-    contentType: 'application/json',
-    processData: false,
-    dataType: 'json',
-    method: 'GET'
-  }).done(function(data, textStatus, jqxhr) {
-    // console.log(data);
-    var productsList = productsIndexTemplate({
-      products: data
-    });
-    // populate index.html with products from db
-    $('#products-index').html(productsList);
-  }).fail(function(jqshr, textStatus, errorThrown) {
-    console.log('products index failed');
+  $('#testbutton').on('click', function(){
+    createCart();
+    console.log('textbutton clicked');
+    console.log('simpleStorage.get("user_id"):', simpleStorage.get('user_id'));
   });
 
-
-  // Handlebars template for shopping cart.
-  var cartTemplate = Handlebars.compile($('#cart-template').html());
-
-  // load shopping cart on shopping-cart.html
-  $.ajax(sa + '/cart/' + simpleStorage.get('user_id'), {
-    contentType: 'application/json',
-    processData: false,
-    dataType: 'json',
-    method: 'GET'
-  }).done(function(data, textStatus, jqxhr) {
-    $('#cartTable').html(cartTemplate({data}));
-    console.log('Cart shown');
-    console.log(data);
-  }).fail(function(jqshr, textStatus, errorThrown){
-    console.error(errorThrown);
+  $('#getpagedata').on('click', function(){
+    updateCart();
   });
-
-
-
-
-
-  // // Handlebars template for order history.
-  // var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
-
-
-  // ----- code to be used for the shopping cart
-  // -----
-  // if (!cartJSON.user_id) {
-  //      $('#loginModal').modal('show');
-  // }
-
-  // console.log('simpleStorage.get("cart")', simpleStorage.get('cart'));
-
-  // cartJSON.user_id = simpleStorage.get('user_id');
-  // createCart();
-  // console.log("end of event handler");
-
-
 });
+//--------end document ready-------------
+
+
+// Handlebars template for products index.
+var productsIndexTemplate = Handlebars.compile($('#products-index-template').html());
+console.log(productsIndexTemplate);
+
+// load products on index.html
+$.ajax(sa + '/products', {
+  contentType: 'application/json',
+  processData: false,
+  dataType: 'json',
+  method: 'GET'
+}).done(function(data, textStatus, jqxhr) {
+  // console.log(data);
+  var productsList = productsIndexTemplate({
+    products: data
+  });
+  // populate index.html with products from db
+  $('#products-index').html(productsList);
+}).fail(function(jqshr, textStatus, errorThrown) {
+  console.log('products index failed');
+});
+
+// Handlebars template for shopping cart.
+var cartTemplate = Handlebars.compile($('#cart-template').html());
+
+// load shopping cart on shopping-cart.html
+$.ajax(sa + '/cart/' + simpleStorage.get('user_id'), {
+  contentType: 'application/json',
+  processData: false,
+  dataType: 'json',
+  method: 'GET'
+}).done(function(data, textStatus, jqxhr) {
+  $('#cartTable').html(cartTemplate({data}));
+  console.log('Cart shown');
+  console.log(data);
+}).fail(function(jqshr, textStatus, errorThrown){
+  console.error(errorThrown);
+});
+
+// // Handlebars template for order history.
+// var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
+
+
+// ----- code to be used for the shopping cart
+// -----
+// if (!cartJSON.user_id) {
+//      $('#loginModal').modal('show');
+// }
+
+// console.log('simpleStorage.get("cart")', simpleStorage.get('cart'));
+
+// cartJSON.user_id = simpleStorage.get('user_id');
+// createCart();
+// console.log("end of event handler");
