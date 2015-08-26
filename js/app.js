@@ -62,6 +62,10 @@ var onChangeValue = function(element) {
 	var sku = $(element).attr('id');
 	var qt = $(element).val();
 	localCart[sku] = qt;
+	//update database cart only if the user is logged in
+	if (simpleStorage.get('user_id')) {
+		updateCart();
+	}
 };
 
 $(document).ready(function() {
@@ -159,7 +163,9 @@ $(document).ready(function() {
 		var sku = $(this).attr('id');
 		localCart[sku] = qt;
 		// simpleStorage.set(sku, qt);
-		updateCart();
+		if (simpleStorage.get('user_id')) {
+			updateCart();
+		}
 	});
 
 	// prompt for login and update cart
