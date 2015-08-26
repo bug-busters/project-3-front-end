@@ -11,14 +11,16 @@ var localCart = {};
 
 // create new cart in database
 var createCart = function() {
+	simpleStorage.set('cart', JSON.stringify(localCart));
+
 	$.ajax(sa + '/cart/' + simpleStorage.get('user_id'), {
 			contentType: 'application/json',
 			processData: false,
 			dataType: 'json',
 			method: 'POST',
 			data: JSON.stringify({
-				user_id: simpleStorage.get('user_id'),
-				products: localCart
+				// user_id: simpleStorage.get('user_id'),
+				products: simpleStorage('cart')
 			}),
 			header: {
 				user_id: simpleStorage.get('user_id')
@@ -34,15 +36,16 @@ var createCart = function() {
 
 // update cart in database
 var updateCart = function() {
-	console.log('updatecart called');
+	simpleStorage.set('cart', JSON.stringify(localCart));
+
 	$.ajax(sa + '/cart/' + simpleStorage.get('user_id'), {
 			contentType: 'application/json',
 			processData: false,
 			// dataType: 'json',
 			method: 'PATCH',
 			data: JSON.stringify({
-				user_id: simpleStorage.get('user_id'),
-				products: localCart
+				// user_id: simpleStorage.get('user_id'),
+				products: simpleStorage.get('cart')
 			}),
 			header: {
 				user_id: simpleStorage.get('user_id')
