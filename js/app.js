@@ -58,6 +58,7 @@ var onChangeValue = function() {
   simpleStorage.set(sku, qt);
 };
 
+
 $(document).ready(function() {
   var cartJSON = { products: {} };
 
@@ -75,12 +76,12 @@ $(document).ready(function() {
       contentType: 'application/json',
       processData: false,
       data: JSON.stringify({
-              firstname: $('#first-name').val(),
-              lastname: $('#last-name').val(),
-              email: $('#reg_email').val(),
-              password: $('#reg_password').val(),
-              phone_number: $('#phone').val(),
-              is_admin: false //This needs to be removed and set automatically to false in the back end for security reasons in the back end. Users could edit this line in their console to true and mess with the web site.
+        firstname: $('#first-name').val(),
+        lastname: $('#last-name').val(),
+        email: $('#reg_email').val(),
+        password: $('#reg_password').val(),
+        phone_number: $('#phone').val(),
+        is_admin: false //This needs to be removed and set automatically to false in the back end for security reasons in the back end. Users could edit this line in their console to true and mess with the web site.
       }),
       method: 'POST'
     }).done(function(data, textStatus, jqxhr) {
@@ -124,16 +125,27 @@ $(document).ready(function() {
     }).fail(function(jqshr, textStatus, errorThrown) {
             alert('Login failed. Please use correct email and password.');
     });
+      $('#login-register').hide(); // hide login button
+      $('#order-hist-msg').hide(); // hide prompt to login
+      console.log('Register successful.');
+      simpleStorage.set('user_id', data);
+    }).fail(function(jqshr, textStatus, errorThrown) {
+      console.log(jqshr);
+      alert('Registration failed. Please use correct email and password.');
+    });
+    e.preventDefault();
   });
+
+
 
   // user log out
   // TODO Check if they are logged in
   // TODO Delete session
   $('#logout').on('click', function() {
     $.ajax(sa + '/logout', {
-            contentType: 'application/json',
-            processData: false,
-            method: 'POST'
+      contentType: 'application/json',
+      processData: false,
+      method: 'POST'
     }).done(function(data, textStatus, jqxhr) {
       simpleStorage.flush();
       $('#logout').hide(); // show logout button
@@ -162,10 +174,11 @@ $(document).ready(function() {
   // prompt for login and update cart
   $('#products-index').on('click', '.checkout', function() {
     var inputs = $('input[type=number]');
-    var quantity = 0;
     var cart = {};
+
     for (var i = 0; i < inputs.length; i++) {
       var sku = inputs[i].attributes.id.value;
+
       if (inputs[i].value > 0) {
         cart[sku] = $('input[id=' + sku + ']').val();
       }
@@ -180,6 +193,7 @@ $(document).ready(function() {
 
   });
 
+
   // $('#testbutton').on('click', function(){
   //   createCart();
   //   console.log('textbutton clicked');
@@ -191,6 +205,7 @@ $(document).ready(function() {
   // });
 
 
+
   // load products on index.html
   $.ajax(sa + '/products', {
     contentType: 'application/json',
@@ -200,7 +215,7 @@ $(document).ready(function() {
   }).done(function(data, textStatus, jqxhr) {
     // console.log(data);
     var productsList = productsIndexTemplate({
-            products: data
+      products: data
     });
     // populate index.html with products from db
     $('#products-index').html(productsList);
@@ -229,6 +244,7 @@ $(document).ready(function() {
 
 
 
+
   // // Handlebars template for order history.
   // var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
 
@@ -244,5 +260,6 @@ $(document).ready(function() {
   // cartJSON.user_id = simpleStorage.get('user_id');
   // createCart();
   // console.log("end of event handler");
+
 
 });
