@@ -7,6 +7,7 @@ Handlebars.registerHelper('currency', function(price) {
         return '$' + price.toFixed(2);
 });
 
+// create new cart in database
 var createCart = function() {
   $.ajax(sa + '/cart/' + simpleStorage.get('user_id'), {
     contentType: 'application/json',
@@ -29,6 +30,7 @@ var createCart = function() {
   });
 };
 
+// update cart in database
 var updateCart = function() {
   $.ajax(sa + '/cart/' + simpleStorage.get('user_id'), {
     contentType: 'application/json',
@@ -51,11 +53,16 @@ var updateCart = function() {
   });
 };
 
+// change value for HTML input element
 var onChangeValue = function() {
   var qt = $(this).prev('input').val();
   $(this).prev('input').val(++qt);
   var sku = $(this).attr('id');
   simpleStorage.set(sku, qt);
+};
+
+var mergeCarts = function() {
+
 };
 
 
