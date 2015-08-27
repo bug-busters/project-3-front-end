@@ -169,55 +169,67 @@
 
 		<!-- Cart Handlebars Template -->
 		<script id="cart-template" type="text/x-handlebars-template">
-			<table>
-				<thead>
-					<th>Cupcake</th>
-					<ht>Quantity</th>
-					<ht>Price</th>
-					<th>Total</th>
-				</thead>
-				<tbody>
-					{{#each products}}
-					<tr>
-						<td>{{title}}</td>
-						<td>{{quantity}}</td>
-						<td>${{price}}</td>
-						<td>${{subtotal}}</td>
-						{{/each}}
-						<td></td>
-						<td></td>
-						<td></td>
-						<td>${{total}}</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="order-box center-block">
+				<table class="table">
+					<thead>
+						<th>Cupcake</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Total</th>
+					</thead>
+					<tbody>
+						{{#each products}}
+						<tr>
+							<td>{{title}}</td>
+							<td>{{quantity}}</td>
+							<td>${{price}}</td>
+							<td>${{subtotal}}</td>
+							{{/each}}
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>${{total}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</script>
 		<!-- end Cart Handlebars-->
 
 		<!-- Past Orders Handlebars Template -->
 		<script id="order-history-template" type="text/x-handlebars-template">
-			<table>
-				<thead>
-					<th>Order Date</th>
-					<th>Cupcake</th>
-					<ht>Quantity</th>
-					<th>Total</th>
-				</thead>
-				<tbody>
-					{{#each products}}
-					<tr>
-						<td>{{createdat}}</td>
-						<td>{{title}}</td>
-						<td>{{quantity}}</td>
-						<td>${{subtotal}}</td>
-						{{/each}}
-						<td></td>
-						<td></td>
-						<td></td>
-						<td>${{total}}</td>
-					</tr>
-				</tbody>
-			</table>
+			<div class="order-box center-block">
+				{{#each order}}
+				<h2>Order Date: {{order date}}</h2>
+				<table class="table">
+					<thead>
+						<th>Order Date</th>
+						<th>Cupcake</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Total</th>
+					</thead>
+					<tbody>
+						{{#each products}}
+						<tr>
+							<td>{{title}}</td>
+							<td>{{quantity}}</td>
+							<td>${{price}}</td>
+							<td>${{subtotal}}</td>
+							{{/each}}
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>${{total}}</td>
+						</tr>
+					</tbody>
+				</table>
+				{{/each}}
+			</div>
 		</script>
 		<!--end Past Orders Handlebars-->
 
