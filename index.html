@@ -182,15 +182,15 @@
 						<tr>
 							<td>{{title}}</td>
 							<td>{{quantity}}</td>
-							<td>{{currency price}}</td>
-							<td>{{currency subtotal}}</td>
+							<td>${{price}}</td>
+							<td>${{subtotal}}</td>
 							{{/each}}
 						</tr>
 						<tr>
 							<td></td>
 							<td></td>
 							<td></td>
-							<td>{{currency grandTotal}}</td>
+							<td>${{grandTotal}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -203,7 +203,7 @@
 		<script id="order-history-template" type="text/x-handlebars-template">
 			<div class="order-box center-block">
 				{{#each order}}
-				<h2>Order Date: {{order date}}</h2>
+				<h2>Order Date: {{orderDate}}</h2>
 				<table class="table">
 					<thead>
 						<th>Order Date</th>
@@ -219,7 +219,7 @@
 							<td>{{order.products.quantity}}</td>
 							<td>${{order.products.price}}</td>
 							<td>${{order.products.subtotal}}</td>
-							<td>{{order.products.status}}</td>
+							<td>{{status}}</td>
 						</tr>
 						<tr>
 							<td></td>
