@@ -16,7 +16,13 @@ require(['cart', 'authenticate', 'navigation'], function(cartModule, authModule,
 
 		var localCart = {};
 
-		$('#nav-logout').hide();
+		if (simpleStorage.get('user_info').user_id) {
+			$('#login-register').hide();
+			$('#nav-logout').show();
+		} else {
+			$('#nav-logout').hide();
+			$('#login-register').show();
+		}
 
 		$.ajaxSetup({
 			xhrFields: {
