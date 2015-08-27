@@ -87,19 +87,8 @@ define(function() {
 		}
 	};
 
-	cart.checkoutHandler = function() {
-		console.log('checkout clicked');
-		var inputs = $('input[type=number]');
-		var cart = {};
-
-		for (var i = 0; i < inputs.length; i++) {
-			var sku = inputs[i].attributes.id.value;
-			if (inputs[i].value > 0) {
-				cart[sku] = $('input[id=' + sku + ']').val();
-			}
-		}
-		simpleStorage.set('cart', JSON.stringify(cart));
-		console.log(simpleStorage.get('cart'));
+	cart.finalCheckoutHandler = function() {
+		// TODO
 
 		// check if user is logged in
 		if (simpleStorage.get('user_info').user_id) {
@@ -128,4 +117,5 @@ define(function() {
 	};
 
 	return cart;
+
 });
