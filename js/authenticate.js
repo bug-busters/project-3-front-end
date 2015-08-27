@@ -65,18 +65,10 @@ define(['cart'], function(cartModule) {
     },
 
     logout: function() {
-      $.ajax(sa + '/logout', {
-        contentType: 'application/json',
-        processData: false,
-        method: 'POST'
-      }).done(function(data, textStatus, jqxhr) {
-        simpleStorage.flush();
-        $('#nav-logout').hide(); // show logout button
-        $('#login-register').show(); // hide login button
-        $('#order-hist-msg').show(); // hide prompt to login
-      }).fail(function(jqshr, textStatus, errorThrown) {
-        console.log('logout failed');
-      });
+      simpleStorage.flush();
+      $('#nav-logout').hide(); // show logout button
+      $('#login-register').show(); // hide login button
+      $('#nav-past-orders').hide(); // hide prompt to login
     }
   }
 });
