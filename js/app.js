@@ -19,7 +19,6 @@ var createCart = function() {
 			dataType: 'json',
 			method: 'POST',
 			data: JSON.stringify({
-      user_id: simpleStorage.get('user_id'),
 				products: simpleStorage.get('cart')
 			}),
 			header: {
@@ -48,7 +47,6 @@ var updateCart = function() {
 			// dataType: 'json',
 			method: 'PATCH',
 			data: JSON.stringify({
-      user_id: simpleStorage.get('user_id'),
 				products: simpleStorage.get('cart')
 			}),
 			header: {
@@ -72,7 +70,7 @@ var onChangeValue = function(element) {
 
 	//update database cart only if the user is logged in
 	if (simpleStorage.get('user_info')) {
-		if (simpleStorage.get('user_info').hasCart === false) {
+		if (!simpleStorage.get('user_info').hasCart) {
 			createCart();
 		}
 		updateCart();
@@ -111,6 +109,7 @@ $(document).ready(function() {
 			$('#order-hist-msg').hide(); // hide prompt to login
 			console.log('Register successful.');
 			simpleStorage.set('user_info', data);
+			createCart();
 		}).fail(function(jqshr, textStatus, errorThrown) {
 			// console.log(jqshr);
 			alert('Registration failed. Please use correct email and password.');
@@ -129,7 +128,7 @@ $(document).ready(function() {
 			}),
 			method: 'POST'
 		}).done(function(data, textStatus, jqxhr) {
-      // TODO merge carts function
+			// TODO merge carts function
 			// Get cart from DB
 			// Compare with simpleStorage
 			// save the merged cart in simpleStorage cart
@@ -142,10 +141,10 @@ $(document).ready(function() {
 			$('#order-hist-msg').hide(); // hide prompt to login
 			console.log('login done. data: ' + data);
 			simpleStorage.set('user_info', data);
-      // automatically log user in when they register
+			// automatically log user in when they register
 			console.log(simpleStorage.get('user_info'));
 			// create cart if user has no cart
-			if (simpleStorage.get('user_info').hasCart === false) {
+			if (!simpleStorage.get('user_info').hasCart) {
 				createCart();
 			}
 		}).fail(function(jqshr, textStatus, errorThrown) {
@@ -158,7 +157,7 @@ $(document).ready(function() {
 	// user log out
 	// TODO Check if they are logged in
 	// TODO Delete session
-  $('#nav-logout').on('click', function() {
+	$('#nav-logout').on('click', function() {
 		$.ajax(sa + '/logout', {
 			contentType: 'application/json',
 			processData: false,
@@ -170,56 +169,60 @@ $(document).ready(function() {
 			$('#order-hist-msg').show(); // hide prompt to login
 		}).fail(function(jqshr, textStatus, errorThrown) {
 			console.log('logout failed');
-    });
-  });
+		});
+	});
 
-  $('#nav-cart').on('click', function() {
-  	console.log('navigation CART button clicked');
+	$('#nav-cart').on('click', function() {
+		console.log('navigation CART button clicked');
 
-		$.ajax(sa + '/cart/' + simpleStorage.get('user_id'), {
-		  contentType: 'application/json',
-		  processData: false,
-		  dataType: 'json',
-		  method: 'GET'
+		$.ajax(sa + '/cart/' + simpleStorage.get('user_info').user_id, {
+			contentType: 'application/json',
+			processData: false,
+			dataType: 'json',
+			method: 'GET'
 		}).done(function(data, textStatus, jqxhr) {
 			var cartTemplate = Handlebars.compile($('#cart-template').html());
-		  $('#page').html(cartTemplate({data}));
-		  console.log('Cart shown');
-		  console.log(data);
-		}).fail(function(jqshr, textStatus, errorThrown){
-		  console.error(errorThrown);
+			$('#page').html(cartTemplate({
+				// data
+			}));
+			console.log('Cart shown');
+			console.log(data);
+		}).fail(function(jqshr, textStatus, errorThrown) {
+			console.error(errorThrown);
 		});
-  });
+	});
 
-  $('#nav-past-orders').on('click', function() {
+	$('#nav-past-orders').on('click', function() {
 		console.log('navigation PAST ORDERS button clicked');
 		$.ajax(sa + '/pastorders/' + simpleStorage.get('user_id'), {
-		  contentType: 'application/json',
-		  processData: false,
-		  dataType: 'json',
-		  method: 'GET'
+			contentType: 'application/json',
+			processData: false,
+			dataType: 'json',
+			method: 'GET'
 		}).done(function(data, textStatus, jqxhr) {
 			var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
-		  $('#page').html(pastOrdersTemplate({products: data}));
-		  console.log('Past Orders shown');
-		  console.log(data);
-		}).fail(function(jqshr, textStatus, errorThrown){
-		  console.error(errorThrown);
+			$('#page').html(pastOrdersTemplate({
+				products: data
+			}));
+			console.log('Past Orders shown');
+			console.log(data);
+		}).fail(function(jqshr, textStatus, errorThrown) {
+			console.error(errorThrown);
 		});
 	});
 
 	// populate simpleStorage cart
-  $('#page').on('click', '.buy', function() {
-    console.log("purchase clicked");
+	$('#page').on('click', '.buy', function() {
+		console.log('purchase clicked');
 
 		var qt = $(this).prev('input').val();
 		$(this).prev('input').val(++qt);
 		var sku = $(this).attr('id');
 		localCart[sku] = qt;
 
-    //update database cart only if the user is logged in
+		//update database cart only if the user is logged in
 		if (simpleStorage.get('user_info')) {
-    if (simpleStorage.get('user_id')) {
+			if (simpleStorage.get('user_id')) {
 				createCart();
 			}
 			updateCart();
@@ -227,7 +230,7 @@ $(document).ready(function() {
 	});
 
 	// prompt for login and update cart
-  $('#page').on('click', '.checkout', function() {
+	$('#page').on('click', '.checkout', function() {
 		var inputs = $('input[type=number]');
 		var cart = {};
 
@@ -240,28 +243,31 @@ $(document).ready(function() {
 		simpleStorage.set('cart', JSON.stringify(cart));
 		console.log(simpleStorage.get('cart'));
 
-    // check if user is logged in
-    if (simpleStorage.get('user_id')) {
-    	// load shopping cart on shopping-cart.html
+		// check if user is logged in
+		if (simpleStorage.get('user_id')) {
+			// load shopping cart on shopping-cart.html
 			$.ajax(sa + '/cart/' + simpleStorage.get('user_id'), {
-			  contentType: 'application/json',
-			  processData: false,
-			  dataType: 'json',
-			  method: 'GET'
+				contentType: 'application/json',
+				processData: false,
+				dataType: 'json',
+				method: 'GET'
 			}).done(function(data, textStatus, jqxhr) {
 				var cartTemplate = Handlebars.compile($('#cart-template').html());
-			  $('#page').html(cartTemplate({data}));
-			  console.log('Cart shown');
-			  console.log(data);
-			}).fail(function(jqshr, textStatus, errorThrown){
-			  console.error(errorThrown);
-	});
-    }
-    else { // if the user is not logged in get the cart from simpleStorage
-  		var cartTemplate = Handlebars.compile($('#cart-template').html());
-  		var data = simpleStorage.get('cart');
-			$('#page').html(cartTemplate({data}));
-    }
+				$('#page').html(cartTemplate({
+					// data
+				}));
+				console.log('Cart shown');
+				console.log(data);
+			}).fail(function(jqshr, textStatus, errorThrown) {
+				console.error(errorThrown);
+			});
+		} else { // if the user is not logged in get the cart from simpleStorage
+			var cartTemplate = Handlebars.compile($('#cart-template').html());
+			var data = simpleStorage.get('cart');
+			$('#page').html(cartTemplate({
+				// data
+			}));
+		}
 	});
 });
 //--------end document ready-------------
@@ -274,12 +280,12 @@ $.ajax(sa + '/products', {
 	method: 'GET'
 }).done(function(data, textStatus, jqxhr) {
 	// console.log(data);
-  var productsIndexTemplate = Handlebars.compile($('#products-index-template').html());
+	var productsIndexTemplate = Handlebars.compile($('#products-index-template').html());
 	var productsList = productsIndexTemplate({
 		products: data
 	});
 	// populate index.html with products from db
-  $('#page').html(productsList);
+	$('#page').html(productsList);
 
 	$('input[type=number]').on('change', function() {
 		onChangeValue(this);
@@ -288,11 +294,8 @@ $.ajax(sa + '/products', {
 	console.log('products index failed');
 });
 
-
-
 // ----- code to be used for the shopping cart
 // -----
 // if (!cartJSON.user_id) {
 //      $('#loginModal').modal('show');
 // }
-
