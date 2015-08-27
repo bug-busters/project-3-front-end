@@ -183,7 +183,7 @@ $(document).ready(function() {
 		}).done(function(data, textStatus, jqxhr) {
 			var cartTemplate = Handlebars.compile($('#cart-template').html());
 			$('#page').html(cartTemplate({
-				// data
+				data
 			}));
 			console.log('Cart shown');
 			console.log(data);
