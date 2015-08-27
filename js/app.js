@@ -16,7 +16,7 @@ require(['cart', 'authenticate', 'navigation'], function(cartModule, authModule,
 
 		var localCart = {};
 
-		if (simpleStorage.get('user_info').user_id) {
+		if (simpleStorage.get('user_info')) {
 			$('#login-register').hide();
 			$('#nav-logout').show();
 			$('#nav-past-orders').show();
