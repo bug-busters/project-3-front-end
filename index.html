@@ -178,19 +178,19 @@
 						<th>Total</th>
 					</thead>
 					<tbody>
-						{{#each products}}
+						{{#each data.products}}
 						<tr>
 							<td>{{title}}</td>
 							<td>{{quantity}}</td>
-							<td>${{price}}</td>
-							<td>${{subtotal}}</td>
+							<td>{{currency price}}</td>
+							<td>{{currency subtotal}}</td>
 							{{/each}}
 						</tr>
 						<tr>
 							<td></td>
 							<td></td>
 							<td></td>
-							<td>${{total}}</td>
+							<td>{{currency grandTotal}}</td>
 						</tr>
 					</tbody>
 				</table>
