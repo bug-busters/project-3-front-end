@@ -216,10 +216,10 @@ button {
   text-align: center;
 }
 
-.shopping-cart {
-  margin-left: 0 auto;
-  margin-right: 0 auto;
+.order-box {
   width: 70%;
+  border: solid 4px #66ccff;
+  font-family: 'Josefin Sans', sans-serif;
 }
 
 
