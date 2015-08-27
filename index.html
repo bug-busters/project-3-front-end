@@ -44,13 +44,13 @@
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
 						<li>
-							<a href="shopping-cart.html">Cart</a>
+							<a id="nav-cart">Cart</a>
 						</li>
-						<li id="order-history">
-							<a href="order-history.html">Order History</a>
+						<li>
+							<a id="nav-past-orders">Order History</a>
 						</li>
-						<li id="logout">
-							<a href="index.html">Logout</a>
+						<li>
+							<a id="nav-logout">Logout</a>
 						</li>
 						<li id="login-register">
 							<!--   <a href="#">Register/Login</a> -->
@@ -173,9 +173,8 @@
 				<thead>
 					<th>Cupcake</th>
 					<ht>Quantity</th>
-						<ht>Price</th>
-							<th>Subtotal</th>
-							<th>Total</th>
+					<ht>Price</th>
+					<th>Total</th>
 				</thead>
 				<tbody>
 					{{#each products}}
@@ -185,6 +184,7 @@
 						<td>${{price}}</td>
 						<td>${{subtotal}}</td>
 						{{/each}}
+						<td></td>
 						<td></td>
 						<td></td>
 						<td>${{total}}</td>
@@ -198,17 +198,20 @@
 		<script id="order-history-template" type="text/x-handlebars-template">
 			<table>
 				<thead>
+					<th>Order Date</th>
 					<th>Cupcake</th>
 					<ht>Quantity</th>
-						<th>Total</th>
+					<th>Total</th>
 				</thead>
 				<tbody>
 					{{#each products}}
 					<tr>
+						<td>{{createdat}}</td>
 						<td>{{title}}</td>
 						<td>{{quantity}}</td>
 						<td>${{subtotal}}</td>
 						{{/each}}
+						<td></td>
 						<td></td>
 						<td></td>
 						<td>${{total}}</td>
