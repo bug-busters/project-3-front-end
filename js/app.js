@@ -13,20 +13,23 @@ var localCart = {};
 var createCart = function() {
 	simpleStorage.set('cart', JSON.stringify(localCart));
 
-	$.ajax(sa + '/cart/' + simpleStorage.get('user_info'), {
+	$.ajax(sa + '/cart/' + simpleStorage.get('user_info').user_id, {
 			contentType: 'application/json',
 			processData: false,
 			dataType: 'json',
 			method: 'POST',
 			data: JSON.stringify({
-				user_id: simpleStorage.get('user_info').user_id,
 				products: simpleStorage.get('cart')
 			}),
 			header: {
-				user_id: parseInt(simpleStorage.get('user_info').user_id)
+				user_id: simpleStorage.get('user_info').user_id
 			}
 		})
 		.done(function(response) {
+			simpleStorage.set('user_info', {
+				user_id: simpleStorage.get('user_info').user_id,
+				hasCart: true
+			});
 			console.log('Cart created');
 		})
 		.fail(function(response) {
@@ -38,17 +41,16 @@ var createCart = function() {
 var updateCart = function() {
 	simpleStorage.set('cart', JSON.stringify(localCart));
 
-	$.ajax(sa + '/cart/' + simpleStorage.get('user_info'), {
+	$.ajax(sa + '/cart/' + simpleStorage.get('user_info').user_id, {
 			contentType: 'application/json',
 			processData: false,
 			// dataType: 'json',
 			method: 'PATCH',
 			data: JSON.stringify({
-				user_id: simpleStorage.get('user_info').user_id,
 				products: simpleStorage.get('cart')
 			}),
 			header: {
-				user_id: parseInt(simpleStorage.get('user_info').user_id)
+				user_id: simpleStorage.get('user_info').user_id
 			}
 		})
 		.done(function(response) {
@@ -137,6 +139,7 @@ $(document).ready(function() {
 			$('#order-hist-msg').hide(); // hide prompt to login
 			console.log('login done. data: ' + data);
 			simpleStorage.set('user_info', data);
+			console.log(simpleStorage.get('user_info'));
 			// create cart if user has no cart
 			if (simpleStorage.get('user_info').hasCart === false) {
 				createCart();
@@ -241,7 +244,7 @@ $.ajax(sa + '/products', {
 var cartTemplate = Handlebars.compile($('#cart-template').html());
 
 // load shopping cart on shopping-cart.html
-$.ajax(sa + '/cart/' + simpleStorage.get('user_info'), {
+$.ajax(sa + '/cart/' + simpleStorage.get('user_info').user_id, {
 	contentType: 'application/json',
 	processData: false,
 	dataType: 'json',
