@@ -62,6 +62,10 @@ define(function() {
 		var sku = $(element).attr('id');
 		var qt = $(element).val();
 		localCart[sku] = qt;
+
+		//create or update simpleStorage cart
+		simpleStorage.set('cart', localCart);
+
 		//update database cart only if the user is logged in
 		if (simpleStorage.get('user_info')) {
 			if (!simpleStorage.get('user_info').hasCart) {
@@ -78,6 +82,10 @@ define(function() {
 		button.prev('input').val(++qt);
 		var sku = button.attr('id');
 		localCart[sku] = qt;
+
+		//create or update simpleStorage cart
+		simpleStorage.set('cart', localCart);
+
 		//update database cart only if the user is logged in
 		if (simpleStorage.get('user_info')) {
 			if (simpleStorage.get('user_id')) {
