@@ -99,10 +99,6 @@ define(function() {
 				dataType: 'json',
 				method: 'GET'
 			}).done(function(data, textStatus, jqxhr) {
-				var cartTemplate = Handlebars.compile($('#cart-template').html());
-				$('#page').html(cartTemplate({
-					// data
-				}));
 				console.log('Cart shown');
 				console.log(data);
 			}).fail(function(jqshr, textStatus, errorThrown) {
