@@ -195,6 +195,7 @@
 					</tbody>
 				</table>
 			</div>
+			<button id="final-checkout" class="text-center center-block">Checkout</button>
 		</script>
 		<!-- end Cart Handlebars-->
 
@@ -210,21 +211,21 @@
 						<th>Quantity</th>
 						<th>Price</th>
 						<th>Total</th>
+						<th>Status</th>
 					</thead>
 					<tbody>
-						{{#each products}}
 						<tr>
-							<td>{{title}}</td>
-							<td>{{quantity}}</td>
-							<td>${{price}}</td>
-							<td>${{subtotal}}</td>
-							{{/each}}
+							<td>{{order.products.title}}</td>
+							<td>{{order.products.quantity}}</td>
+							<td>${{order.products.price}}</td>
+							<td>${{order.products.subtotal}}</td>
+							<td>{{order.products.status}}</td>
 						</tr>
 						<tr>
 							<td></td>
 							<td></td>
 							<td></td>
-							<td>${{total}}</td>
+							<td>${{order.products.total}}</td>
 						</tr>
 					</tbody>
 				</table>
