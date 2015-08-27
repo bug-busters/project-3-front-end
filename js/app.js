@@ -24,43 +24,42 @@ require(['cart', 'authenticate', 'navigation'], function(cartModule, authModule,
 			}
 		});
 
-		$('#page').on('change', 'input[type="number"]', function (e) {
+		$('#page').on('change', 'input[type="number"]', function(e) {
 			console.log('e: ', e);
 			cartModule.onChangeValue($(this));
 		});
 
 		// user register
-		$('#register').on('click', function (event) {
+		$('#register').on('click', function(event) {
 			authModule.register(event);
 		});
 
 		// User Login
-		$('#login').on('click', function (event) {
+		$('#login').on('click', function(event) {
 			authModule.login(event);
 		});
-
 		// user log out
 		// TODO Check if they are logged in
 		// TODO Delete session
-		$('#nav-logout').on('click', function (event) {
+		$('#nav-logout').on('click', function(event) {
 			authModule.logout();
 		});
 
-		$('#nav-cart').on('click', function (event) {
+		$('#nav-cart').on('click', function(event) {
 			navModule.navCart();
 		});
 
-		$('#nav-past-orders').on('click', function (event) {
+		$('#nav-past-orders').on('click', function(event) {
 			navModule.navPastOrders();
 		});
 
 		// populate simpleStorage cart
-		$('#page').on('click', '.buy', function (event){
-			cartModule.buyHandler();
+		$('#page').on('click', '.buy', function(event) {
+			cartModule.buyHandler($(this));
 		});
 
 		// prompt for login and update cart
-		$('#page').on('click', '.checkout', function (event) {
+		$('#page').on('click', '.checkout', function(event) {
 			cartModule.checkoutHandler();
 		});
 	});
