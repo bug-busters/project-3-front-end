@@ -135,7 +135,7 @@ $(document).ready(function() {
 			$('#logout').show(); // show logout button
 			$('#login-register').hide(); // hide login button
 			$('#order-hist-msg').hide(); // hide prompt to login
-			console('login done. data: ' + data);
+			console.log('login done. data: ' + data);
 			simpleStorage.set('user_info', data);
 			// create cart if user has no cart
 			if (simpleStorage.get('user_info').hasCart === false) {
