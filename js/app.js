@@ -55,7 +55,7 @@ require(['cart', 'authenticate', 'navigation'], function(cartModule, authModule,
 
 		// populate simpleStorage cart
 		$('#page').on('click', '.buy', function(event) {
-			cartModule.buyHandler();
+			cartModule.buyHandler($(this));
 		});
 
 		// prompt for login and update cart
