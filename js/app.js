@@ -81,7 +81,7 @@ var onChangeValue = function(element) {
 
 $(document).ready(function() {
 
-	$('#logout').hide();
+	$('#nav-logout').hide();
 
 	$.ajaxSetup({
 		xhrFields: {
@@ -106,7 +106,7 @@ $(document).ready(function() {
 			}),
 			method: 'POST'
 		}).done(function(data, textStatus, jqxhr) {
-			$('#logout').show(); // show logout button
+			$('#nav-logout').show(); // show logout button
 			$('#login-register').hide(); // hide login button
 			$('#order-hist-msg').hide(); // hide prompt to login
 			console.log('Register successful.');
@@ -137,7 +137,7 @@ $(document).ready(function() {
 			console.warn('login successful');
 			// console.log('Data: ', data);
 			// console.log('Data.hasCart: ', data.hasCart);
-			$('#logout').show(); // show logout button
+			$('#nav-logout').show(); // show logout button
 			$('#login-register').hide(); // hide login button
 			$('#order-hist-msg').hide(); // hide prompt to login
 			console.log('login done. data: ' + data);
@@ -183,7 +183,7 @@ $(document).ready(function() {
 		  method: 'GET'
 		}).done(function(data, textStatus, jqxhr) {
 			var cartTemplate = Handlebars.compile($('#cart-template').html());
-		  $('#cartTable').html(cartTemplate({data}));
+		  $('#page').html(cartTemplate({data}));
 		  console.log('Cart shown');
 		  console.log(data);
 		}).fail(function(jqshr, textStatus, errorThrown){
@@ -193,7 +193,6 @@ $(document).ready(function() {
 
   $('#nav-past-orders').on('click', function() {
 		console.log('navigation PAST ORDERS button clicked');
-
 		$.ajax(sa + '/pastorders/' + simpleStorage.get('user_id'), {
 		  contentType: 'application/json',
 		  processData: false,
@@ -201,8 +200,8 @@ $(document).ready(function() {
 		  method: 'GET'
 		}).done(function(data, textStatus, jqxhr) {
 			var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
-		  $('#cartTable').html(pastOrdersTemplate({data}));
-		  console.log('Cart shown');
+		  $('#page').html(pastOrdersTemplate({products: data}));
+		  console.log('Past Orders shown');
 		  console.log(data);
 		}).fail(function(jqshr, textStatus, errorThrown){
 		  console.error(errorThrown);
@@ -289,27 +288,7 @@ $.ajax(sa + '/products', {
 	console.log('products index failed');
 });
 
-// Handlebars template for shopping cart.
-var cartTemplate = Handlebars.compile($('#cart-template').html());
 
-// load shopping cart on shopping-cart.html
-$.ajax(sa + '/cart/' + simpleStorage.get('user_info').user_id, {
-	contentType: 'application/json',
-	processData: false,
-	dataType: 'json',
-	method: 'GET'
-}).done(function(data, textStatus, jqxhr) {
-	$('#cartTable').html(cartTemplate({
-		products: data
-	}));
-	console.log('Cart shown');
-	console.log(data);
-}).fail(function(jqshr, textStatus, errorThrown) {
-	console.error(errorThrown);
-});
-
-// // Handlebars template for order history.
-// var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
 
 // ----- code to be used for the shopping cart
 // -----
@@ -317,8 +296,3 @@ $.ajax(sa + '/cart/' + simpleStorage.get('user_info').user_id, {
 //      $('#loginModal').modal('show');
 // }
 
-// console.log('simpleStorage.get("cart")', simpleStorage.get('cart'));
-
-// cartJSON.user_id = simpleStorage.get('user_info');
-// createCart();
-// console.log("end of event handler");
