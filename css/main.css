@@ -223,4 +223,11 @@ button {
 }
 
 
+#final-checkout {
+  font-size: 24px;
+  margin-top: 1%;
+  width: 50%;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
 /*****************/
