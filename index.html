@@ -178,7 +178,7 @@
 						<th>Total</th>
 					</thead>
 					<tbody>
-						{{#each data.products}}
+						{{#each cart.products}}
 						<tr>
 							<td>{{title}}</td>
 							<td>{{quantity}}</td>
@@ -190,7 +190,7 @@
 							<td></td>
 							<td></td>
 							<td></td>
-							<td>{{currency grandTotal}}</td>
+							<td>{{currency cart.totals.grandTotal}}</td>
 						</tr>
 					</tbody>
 				</table>
