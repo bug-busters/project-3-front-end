@@ -19,9 +19,11 @@ require(['cart', 'authenticate', 'navigation'], function(cartModule, authModule,
 		if (simpleStorage.get('user_info').user_id) {
 			$('#login-register').hide();
 			$('#nav-logout').show();
+			$('#nav-past-orders').show();
 		} else {
 			$('#nav-logout').hide();
 			$('#login-register').show();
+			$('#nav-past-orders').hide();
 		}
 
 		$.ajaxSetup({
