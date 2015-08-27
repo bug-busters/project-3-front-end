@@ -5,6 +5,11 @@ define(function() {
 		navCart: function() {
 			console.log('navigation CART button clicked');
 
+			if (simpleStorage.get('cart') === undefined) {
+				alert("Your cupcake cart is empty :(");
+				return;
+			}
+
 			$.ajax(sa + '/cart/' + simpleStorage.get('user_info').user_id, {
 				contentType: 'application/json',
 				processData: false,
