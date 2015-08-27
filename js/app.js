@@ -60,7 +60,7 @@ require(['cart', 'authenticate', 'navigation'], function(cartModule, authModule,
 
 		// prompt for login and update cart
 		$('#page').on('click', '.checkout', function(event) {
-			cartModule.checkoutHandler();
+			navModule.navCart();
 		});
 	});
 	//--------end document ready-------------
