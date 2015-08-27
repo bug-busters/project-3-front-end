@@ -71,7 +71,7 @@ define(['cart'], function(cartModule) {
         method: 'POST'
       }).done(function(data, textStatus, jqxhr) {
         simpleStorage.flush();
-        $('#logout').hide(); // show logout button
+        $('#nav-logout').hide(); // show logout button
         $('#login-register').show(); // hide login button
         $('#order-hist-msg').show(); // hide prompt to login
       }).fail(function(jqshr, textStatus, errorThrown) {
