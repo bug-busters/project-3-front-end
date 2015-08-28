@@ -3,7 +3,7 @@
 
 var sa = 'http://localhost:8000';
 
-require(['cart', 'authenticate', 'navigation'], function(cartModule, authModule, navModule) {
+require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, authModule, navModule, stripeModule) {
 	// Handlebars helper function for formatting currency.
 	Handlebars.registerHelper('currency', function(price) {
 		return '$' + price.toFixed(2);
@@ -80,6 +80,12 @@ require(['cart', 'authenticate', 'navigation'], function(cartModule, authModule,
 		// prompt for login and update cart
 		$('#page').on('click', '.checkout', function(event) {
 			navModule.navCart();
+		});
+
+		$('#page').on('click', '#stripe-test', function(event) {
+			// event.preventDefault();
+			// console.log('stripe test button clicked');
+			stripeModule.createCharge();
 		});
 	});
 	//--------end document ready-------------

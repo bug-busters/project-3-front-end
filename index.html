@@ -142,33 +142,33 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<h2 class="page-header">a balanced diet is having a cupcake in each hand</h2>
-        <div id="page"></div>
+				<div id="page"></div>
 			</div>
 		</div>
 
 		<footer class="text-center">
 			<h2>
 				<small>Copyright © 2015 Bug Busters</small>
-				</h2>
+			</h2>
 		</footer>
 
 		<!-- Products Handlebars Template -->
-				<script id="products-index-template" type="text/x-handlebars-template">
-					{{#each products}}
-					<div class="col-lg-4 col-sm-6 text-center">
-						<img src={{image}} class="cupcake-photo">
-						<h3>{{title}}</h3>
-						<p>{{description}}</p>
-						<h3>
-							<small>{{currency price}}</small>
-						</h3>
-				<input type="number" id="{{sku}}" placeholder="QT" min="0" value="0" ></input>
+		<script id="products-index-template" type="text/x-handlebars-template">
+			{{#each products}}
+			<div class="col-lg-4 col-sm-6 text-center">
+				<img src={{image}} class="cupcake-photo">
+				<h3>{{title}}</h3>
+				<p>{{description}}</p>
+				<h3>
+					<small>{{currency price}}</small>
+				</h3>
+				<input type="number" id="{{sku}}" placeholder="QT" min="0" value="0"></input>
 				<button class="buy" id="{{sku}}">Buy</button>
-						<button class="checkout" id="{{sku}}" href="shopping-cart.html">Checkout</button>
-					</div>
-					{{/each}}
-				</script>
-				<!-- End Handlebars Template -->
+				<button class="checkout" id="{{sku}}" href="shopping-cart.html">Checkout</button>
+			</div>
+			{{/each}}
+		</script>
+		<!-- End Handlebars Template -->
 
 		<!-- Cart Handlebars Template -->
 		<script id="cart-template" type="text/x-handlebars-template">
@@ -198,6 +198,22 @@
 					</tbody>
 				</table>
 			</div>
+			<!-- begin: stripe test -->
+			<br>
+			<!-- this button is for getting element id values -->
+			<form class="text-center center-block">
+				<label for="cc-number">Credit Card Number:</label>
+				<input id="cc-number" placeholder="XXXX-XXXX-XXXX-XXXX">
+				<label for="exp-month">Expiration Month:</label>
+				<input id="exp-month" min="1" max="12" placeholder="MM">
+				<label for="exp-year">Expiration Year:</label>
+				<input id="exp-year" min="1900" max="2100" placeholder="YYYY">
+				<label for="cvc">CVC:</label>
+				<input id="cvc" min="1" max="999" placeholder="CVC">
+			</form>
+			<!-- this is the button for testing -->
+			<button id="stripe-test" class="text-center center-block">stripe test</button>
+			<!-- end: stripe test -->
 			<button id="final-checkout" class="text-center center-block">Checkout</button>
 		</script>
 		<!-- end Cart Handlebars-->
