@@ -47,10 +47,10 @@ define(function() {
 			}).done(function(data, textStatus, jqxhr) {
 				var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
 				$('#page').html(pastOrdersTemplate({
-					pastorder: data
+					pastorders: data
 				}));
 				console.log('Past Orders shown');
-				console.log('data: ', data);
+				console.log('pastorder: ', data);
 			}).fail(function(jqshr, textStatus, errorThrown) {
 				console.error(errorThrown);
 			});
