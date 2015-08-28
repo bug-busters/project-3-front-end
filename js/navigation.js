@@ -54,6 +54,24 @@ define(function() {
 			}).fail(function(jqshr, textStatus, errorThrown) {
 				console.error(errorThrown);
 			});
+		},
+
+		navAccount: function() {
+			console.log('my account button clicked');
+			$.ajax(sa + '/users/' + simpleStorage.get('user_info').user_id, {
+				contentType: 'application/json',
+				processData: false,
+				dataType: 'json',
+				method: 'GET'
+			}).done(function(data, textStatus, jqxhr) {
+				console.log('User Account info shown');
+				console.log('user: ', data);
+				var useraccountTemplate = Handlebars.compile($('#user-account-template').html());
+				$('#page').html(useraccountTemplate({data}));
+
+			}).fail(function(jqshr, textStatus, errorThrown) {
+				console.error(errorThrown);
+			});
 		}
 	};
 });
