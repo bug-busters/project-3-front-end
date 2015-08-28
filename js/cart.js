@@ -96,6 +96,7 @@ define(function() {
 	};
 
 	cart.finalCheckoutHandler = function() {
+		console.log('final checkout clicked');
 
 		// check if user is logged in
 		if (!simpleStorage.get('user_info').user_id) {
@@ -103,8 +104,8 @@ define(function() {
 			$('#loginModal').modal('show');
 		}
 
-		// TO DO
 		// call STRIPE CHECKOUT FUNCTIONS IF USER LOGGED IN
+		$('#checkoutModal').modal('show');
 
 	};
 
