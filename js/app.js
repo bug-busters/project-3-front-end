@@ -67,6 +67,11 @@ require(['cart', 'authenticate', 'navigation'], function(cartModule, authModule,
 			navModule.navAccount();
 		});
 
+		// delete User
+		$('#page').on('click', '#delete_account', function(event) {
+			authModule.deleteUser();
+		});
+
 		// populate simpleStorage cart
 		$('#page').on('click', '.buy', function(event) {
 			cartModule.buyHandler($(this));
