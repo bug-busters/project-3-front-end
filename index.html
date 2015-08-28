@@ -46,8 +46,8 @@
 						<li>
 							<a id="nav-cart">Cart</a>
 						</li>
-						<li>
-							<a id="nav-past-orders">Order History</a>
+						<li id="nav-past-orders">
+							<a>Order History</a>
 						</li>
 						<li>
 							<a id="nav-logout">Logout</a>
@@ -213,22 +213,19 @@
 						<th>Status</th>
 					</thead>
 					<tbody>
+						{{#each pastorder.products}}
 						<tr>
-						{{#each pastorders.order.products}}
 							<td>{{title}}</td>
 							<td>{{quantity}}</td>
 							<td>{{currency price}}</td>
 							<td>{{currency subtotal}}</td>
-						{{/each}}
-							<td>{{status}}</td>
-						}
-						}
+							{{/each}}
 						</tr>
 						<tr>
 							<td></td>
 							<td></td>
 							<td></td>
-							<td>{{currency order.products.total}}</td>
+							<td>{{currency cart.totals.grandTotal}}</td>
 						</tr>
 					</tbody>
 				</table>
