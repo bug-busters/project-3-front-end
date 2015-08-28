@@ -138,6 +138,42 @@
 			</div>
 		</div>
 
+		<!-- CHECKOUT FORM -->
+		<div class="text-center modal fade" id="checkoutModal" style="padding:50px 0">
+			<div class="logo">Checkout</div>
+			<div class="login-form-1">
+				<form id="register-form" class="text-left">
+					<div class="login-form-main-message"></div>
+					<div class="main-login-form">
+						<div class="login-group">
+						<!-- begin: stripe test -->
+						<!-- this button is for getting element id values -->
+						<div class="form-group">
+							<label for="cc-number">Credit Card Number:</label>
+							<input id="cc-number" placeholder="XXXX-XXXX-XXXX-XXXX">
+						</div>
+						<div class="form-group">
+							<label for="exp-month">Expiration Month:</label>
+							<input id="exp-month" min="1" max="12" placeholder="MM">
+							<label for="exp-year">Expiration Year:</label>
+							<input id="exp-year" min="1900" max="2100" placeholder="YYYY">
+						</div>
+						<div class="form-group">
+							<label for="cvc">CVC:</label>
+							<input id="cvc" min="1" max="999" placeholder="CVC">
+						</div>
+						</form>
+						<!-- this is the button for testing -->
+						<button id="stripe-test" class="text-center center-block" data-dismiss="modal">Checkout</button>
+						<!-- end: stripe test -->
+						</div>
+
+					</div>
+
+				</form>
+			</div>
+		</div>
+
 		<!--main content-->
 		<div class="row">
 			<div class="col-lg-12">
@@ -198,22 +234,6 @@
 					</tbody>
 				</table>
 			</div>
-			<!-- begin: stripe test -->
-			<br>
-			<!-- this button is for getting element id values -->
-			<form class="text-center center-block">
-				<label for="cc-number">Credit Card Number:</label>
-				<input id="cc-number" placeholder="XXXX-XXXX-XXXX-XXXX" value="4242424242424242">
-				<label for="exp-month">Expiration Month:</label>
-				<input id="exp-month" min="1" max="12" placeholder="MM" value="3">
-				<label for="exp-year">Expiration Year:</label>
-				<input id="exp-year" min="1900" max="2100" placeholder="YYYY" value="2016">
-				<label for="cvc">CVC:</label>
-				<input id="cvc" min="1" max="999" placeholder="CVC" value="123">
-			</form>
-			<!-- this is the button for testing -->
-			<button id="stripe-test" class="text-center center-block">stripe test</button>
-			<!-- end: stripe test -->
 			<button id="final-checkout" class="text-center center-block">Checkout</button>
 		</script>
 		<!-- end Cart Handlebars-->
