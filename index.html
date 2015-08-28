@@ -205,8 +205,8 @@
 		<!-- Past Orders Handlebars Template -->
 		<script id="order-history-template" type="text/x-handlebars-template">
 			<div class="order-box center-block">
-				{{#each pastorders.order}}
-				<h2>Order Date: {{orderDate}}</h2>
+				{{#each pastorders}}
+				<h2><small>Order Date: {{orderDate}}</small></h2>
 				<table class="table">
 					<thead>
 						<th>Cupcake</th>
@@ -216,19 +216,20 @@
 						<th>Status</th>
 					</thead>
 					<tbody>
-						{{#each pastorder.products}}
+					{{#each products}}
 						<tr>
 							<td>{{title}}</td>
 							<td>{{quantity}}</td>
-							<td>{{currency price}}</td>
-							<td>{{currency subtotal}}</td>
-							{{/each}}
+							<td>{{price}}</td>
+							<td>{{subtotal}}</td>
 						</tr>
+					{{/each}}
 						<tr>
 							<td></td>
 							<td></td>
 							<td></td>
-							<td>{{currency cart.totals.grandTotal}}</td>
+							<td>{{grandTotal}}</td>
+							<td>{{status}}</td>
 						</tr>
 					</tbody>
 				</table>
@@ -236,6 +237,8 @@
 			</div>
 		</script>
 		<!--end Past Orders Handlebars-->
+
+
 
 		<!-- User Account Handlebars Template -->
 		<script id="user-account-template" type="text/x-handlebars-template">
