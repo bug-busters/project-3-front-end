@@ -49,8 +49,11 @@
 						<li id="nav-past-orders">
 							<a>Order History</a>
 						</li>
-						<li>
-							<a id="nav-logout">Logout</a>
+						<li id="nav-logout">
+							<a>Logout</a>
+						</li>
+						<li id="nav-account">
+							<a>My Account</a>
 						</li>
 						<li id="login-register">
 							<!--   <a href="#">Register/Login</a> -->
@@ -233,6 +236,17 @@
 			</div>
 		</script>
 		<!--end Past Orders Handlebars-->
+
+		<!-- User Account Handlebars Template -->
+		<script id="user-account-template" type="text/x-handlebars-template">
+			<div class="order-box center-block text-center">
+				<h3>{{data.firstName}} {{data.lastName}}</h3>
+				<p>Email: {{data.email}}</p>
+				<p>Phone Number: {{data.phone_number}}</p>
+				<button id="delete_account">Delete Account</button>
+			</div>
+		</script>
+		<!-- End Handlebars Template -->
 
 
 		<!-- JavaScript libraries -->
