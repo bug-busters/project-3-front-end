@@ -5,9 +5,14 @@ define(function() {
 		navCart: function() {
 			console.log('navigation CART button clicked');
 
-			if (simpleStorage.get('cart') === undefined) {
+			// if (simpleStorage.get('cart') === undefined) {
+			if (!simpleStorage.get('user_info') && simpleStorage.get('cart') === undefined) {
 				alert("Your cupcake cart is empty :(");
 				return;
+			} else if (!simpleStorage.get('user_info') && simpleStorage.get('cart')) {
+				// check if user is logged in
+				alert('You must login or register to checkout!');
+				$('#loginModal').modal('show');
 			}
 
 			$.ajax(sa + '/cart/' + simpleStorage.get('user_info').user_id, {
@@ -34,7 +39,7 @@ define(function() {
 
 		navPastOrders: function() {
 			console.log('navigation PAST ORDERS button clicked');
-			$.ajax(sa + '/pastorders/' + simpleStorage.get('user_id'), {
+			$.ajax(sa + '/pastorders/' + simpleStorage.get('user_info').user_id, {
 				contentType: 'application/json',
 				processData: false,
 				dataType: 'json',
@@ -42,7 +47,7 @@ define(function() {
 			}).done(function(data, textStatus, jqxhr) {
 				var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
 				$('#page').html(pastOrdersTemplate({
-					products: data
+					pastorder: data
 				}));
 				console.log('Past Orders shown');
 				console.log('data: ', data);
