@@ -18,6 +18,7 @@ define(['cart'], function(cartModule) {
         method: 'POST'
       }).done(function(data, textStatus, jqxhr) {
         $('#nav-logout').show(); // show logout button
+        $('#nav-account').show(); // show account info button
         $('#login-register').hide(); // hide login button
         $('#nav-past-orders').show(); // show order history nav link
         console.log('Register successful.');
@@ -48,6 +49,7 @@ define(['cart'], function(cartModule) {
         // save the merged cart in simpleStorage cart
         console.warn('login successful');
         $('#nav-logout').show(); // show logout button
+        $('#nav-account').show(); // show account info button
         $('#login-register').hide(); // hide login button
         $('#nav-past-orders').show(); // show order history nav link
         console.log('login done. data: ' + data);
@@ -57,8 +59,6 @@ define(['cart'], function(cartModule) {
         // create cart if user has no cart
         if (!simpleStorage.get('user_info').hasCart) {
           cartModule.createCart();
-        } else {
-          simpleStorage.set('cart');
         }
       }).fail(function(jqshr, textStatus, errorThrown) {
         console.log(jqshr);
@@ -70,6 +70,7 @@ define(['cart'], function(cartModule) {
       simpleStorage.flush();
       location.reload();
       $('#nav-logout').hide(); // show logout button
+      $('#nav-account').hide(); // hide account info button
       $('#login-register').show(); // hide login button
       $('#nav-past-orders').hide(); // hide prompt to login
     }
