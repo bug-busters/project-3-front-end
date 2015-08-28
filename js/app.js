@@ -20,10 +20,12 @@ require(['cart', 'authenticate', 'navigation'], function(cartModule, authModule,
 			$('#login-register').hide();
 			$('#nav-logout').show();
 			$('#nav-past-orders').show();
+			$('#nav-account').show();
 		} else {
 			$('#nav-logout').hide();
 			$('#login-register').show();
 			$('#nav-past-orders').hide();
+			$('#nav-account').hide();
 		}
 
 		$.ajaxSetup({
@@ -59,6 +61,10 @@ require(['cart', 'authenticate', 'navigation'], function(cartModule, authModule,
 
 		$('#nav-past-orders').on('click', function(event) {
 			navModule.navPastOrders();
+		});
+
+		$('#nav-account').on('click', function(event) {
+			navModule.navAccount();
 		});
 
 		// populate simpleStorage cart
