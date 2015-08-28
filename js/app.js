@@ -77,14 +77,19 @@ require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, a
 			cartModule.buyHandler($(this));
 		});
 
+		// populate simpleStorage cart
+		$('#page').on('click', '#final-checkout', function(event) {
+			cartModule.finalCheckoutHandler();
+		});
+
 		// prompt for login and update cart
 		$('#page').on('click', '.checkout', function(event) {
 			navModule.navCart();
 		});
 
-		$('#page').on('click', '#stripe-test', function(event) {
-			// event.preventDefault();
-			// console.log('stripe test button clicked');
+		$('#stripe-test').on('click', function(event) {
+			event.preventDefault();
+			console.log('stripe test clicked');
 			stripeModule.createCharge();
 		});
 	});
