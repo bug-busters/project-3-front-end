@@ -35,8 +35,10 @@ define(function() {
 		})
 		.done(function(response) {
 			orderInfo = response;
+			console.log('orderinfo');
+			// console.log(orderInfo);
 			charge.amount = 100 * orderInfo.totals.grandTotal;
-			console.log(charge);
+			// console.log(charge);
 			console.log('sending charge');
 			stripe.sendCharge(charge);
 		})
@@ -57,7 +59,42 @@ define(function() {
 		.done(function(response) {
 			// if response is successful then add cart contents to past orders
 			console.log('success');
-			console.log(response);
+			// console.log(response);
+
+			// Construct object to insert into past orders.
+			var order = {};
+			order.products = [];
+			order.userId = simpleStorage.get('user_info').user_id;
+			Object.keys(orderInfo.products).forEach(function(product) {
+				order.products.push(
+					{
+						sku: +product,
+						title: orderInfo.products[product].title,
+						price: +orderInfo.products[product].price,
+						quantity: +orderInfo.products[product].quantity
+					}
+				);
+			});
+			order.status = 'Order being processed.';
+			console.log('order');
+			console.log(order);
+
+			// Refactor this later.
+			if (response.status === 'succeeded') {
+				$.ajax(sa + '/pastorders/' + simpleStorage.get('user_info').user_id, {
+					contentType: 'application/json',
+					processData: false,
+					dataType: 'json',
+					method: 'POST',
+					data: JSON.stringify(order)
+				})
+				.done(function(response) {
+					console.log('current order successfully inserted into past orders');
+				})
+				.fail(function(response) {
+					console.log('current order failed to be inserted into past orders');
+				});
+			}
 		})
 		.fail(function(response) {
 			console.error('stripe.sendCharge() error');
