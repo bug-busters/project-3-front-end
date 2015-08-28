@@ -37,6 +37,7 @@ define(function() {
 			orderInfo = response;
 			charge.amount = 100 * orderInfo.totals.grandTotal;
 			console.log(charge);
+			console.log('sending charge');
 			stripe.sendCharge(charge);
 		})
 		.fail(function(response) {
@@ -51,10 +52,12 @@ define(function() {
 			processData: false,
 			dataType: 'json',
 			method: 'POST',
-			data: charge
+			data: JSON.stringify(charge)
 		})
 		.done(function(response) {
 			// if response is successful then add cart contents to past orders
+			console.log('success');
+			console.log(response);
 		})
 		.fail(function(response) {
 			console.error('stripe.sendCharge() error');
