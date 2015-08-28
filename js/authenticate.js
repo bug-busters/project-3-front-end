@@ -73,6 +73,26 @@ define(['cart'], function(cartModule) {
       $('#nav-account').hide(); // hide account info button
       $('#login-register').show(); // hide login button
       $('#nav-past-orders').hide(); // hide prompt to login
+    },
+
+    deleteUser : function() {
+      console.log('user delete btn clicked');
+
+      $.ajax(sa + '/users/' + simpleStorage.get('user_info').user_id, {
+        contentType: 'application/json',
+        processData: false,
+        method: 'DELETE'
+      }).done(function(data, textStatus, jqxhr) {
+        console.warn('user delete successful');
+        simpleStorage.flush();
+        $('#nav-logout').hide();
+        $('#nav-account').hide();
+        $('#login-register').show();
+        $('#nav-past-orders').hide();
+      }).fail(function(jqshr, textStatus, errorThrown) {
+        console.log(jqshr);
+        alert('User delete failed.');
+      });
     }
   }
 });
