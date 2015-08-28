@@ -26,7 +26,7 @@ define(function() {
 		charge.source.exp_month =$('#exp-month').val();
 		charge.source.exp_year = $('#exp-year').val();
 		charge.source.cvc = $('#cvc').val();
-
+		console.log(charge);
 		$.ajax(sa + '/cart/' + simpleStorage.get('user_info').user_id, {
 			contentType: 'application/json',
 			processData: false,
@@ -58,6 +58,8 @@ define(function() {
 			// if response is successful then add cart contents to past orders
 			console.log('success');
 			console.log(response);
+			location.reload();
+			alert('Your charge has been successful. Look for cupcakes coming to a mouth near you!');
 		})
 		.fail(function(response) {
 			console.error('stripe.sendCharge() error');
