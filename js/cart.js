@@ -96,28 +96,16 @@ define(function() {
 	};
 
 	cart.finalCheckoutHandler = function() {
-		// TODO
 
 		// check if user is logged in
-		if (simpleStorage.get('user_info').user_id) {
-			// load shopping cart on shopping-cart.html
-			$.ajax(sa + '/cart/' + simpleStorage.get('user_info').user_id, {
-				contentType: 'application/json',
-				processData: false,
-				dataType: 'json',
-				method: 'GET'
-			}).done(function(data, textStatus, jqxhr) {
-				console.log('Cart shown');
-				console.log(data);
-			}).fail(function(jqshr, textStatus, errorThrown) {
-				console.error(errorThrown);
-			});
-		} else { // if the user is not logged in get the cart from simpleStorage
-			var cartTemplate = Handlebars.compile($('#cart-template').html());
-			$('#page').html(cartTemplate({
-				// data
-			}));
+		if (!simpleStorage.get('user_info').user_id) {
+			alert('You must login or register to checkout!');
+			$('#loginModal').modal('show');
 		}
+
+		// TO DO
+		// call STRIPE CHECKOUT FUNCTIONS IF USER LOGGED IN
+
 	};
 
 	return cart;
