@@ -19,7 +19,7 @@ define(['cart'], function(cartModule) {
       }).done(function(data, textStatus, jqxhr) {
         $('#nav-logout').show(); // show logout button
         $('#login-register').hide(); // hide login button
-        $('#order-hist-msg').hide(); // hide prompt to login
+        $('#nav-past-orders').show(); // show order history nav link
         console.log('Register successful.');
         simpleStorage.set('user_info', data);
         cartModule.createCart();
@@ -49,7 +49,7 @@ define(['cart'], function(cartModule) {
         console.warn('login successful');
         $('#nav-logout').show(); // show logout button
         $('#login-register').hide(); // hide login button
-        $('#order-hist-msg').hide(); // hide prompt to login
+        $('#nav-past-orders').show(); // show order history nav link
         console.log('login done. data: ' + data);
         simpleStorage.set('user_info', data);
         // automatically log user in when they register
@@ -57,6 +57,8 @@ define(['cart'], function(cartModule) {
         // create cart if user has no cart
         if (!simpleStorage.get('user_info').hasCart) {
           cartModule.createCart();
+        } else {
+          simpleStorage.set('cart');
         }
       }).fail(function(jqshr, textStatus, errorThrown) {
         console.log(jqshr);
@@ -66,6 +68,7 @@ define(['cart'], function(cartModule) {
 
     logout: function() {
       simpleStorage.flush();
+      location.reload();
       $('#nav-logout').hide(); // show logout button
       $('#login-register').show(); // hide login button
       $('#nav-past-orders').hide(); // hide prompt to login
