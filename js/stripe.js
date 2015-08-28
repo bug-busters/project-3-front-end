@@ -65,7 +65,7 @@ define(function() {
 			// Construct object to insert into past orders.
 			var order = {};
 			order.products = [];
-			order.userId = simpleStorage.get('user_info').user_id;
+			order.user_id = simpleStorage.get('user_info').user_id;
 			Object.keys(orderInfo.products).forEach(function(product) {
 				order.products.push(
 					{
