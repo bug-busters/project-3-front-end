@@ -10,11 +10,15 @@ require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, a
 		return '$' + price.toFixed(2);
 	});
 
+	// Handlebars helper function for formatting date.
+	Handlebars.registerHelper('formatDate', function(isoDate) {
+		return moment(isoDate).format('YYYY-MM-DD');
+	});
+
 	console.log('cart module: ', cartModule);
 	console.log('auth module: ', authModule);
 
 	$(document).ready(function() {
-
 		var localCart = {};
 
 		if (simpleStorage.get('user_info')) {
