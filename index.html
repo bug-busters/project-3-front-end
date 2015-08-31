@@ -241,35 +241,39 @@
 		<!-- Past Orders Handlebars Template -->
 		<script id="order-history-template" type="text/x-handlebars-template">
 			<div class="order-box center-block">
-				{{#each pastorders}}
-				<h2><small>Order Date: {{orderDate}}</small></h2>
-				<table class="table">
-					<thead>
-						<th>Cupcake</th>
-						<th>Quantity</th>
-						<th>Price</th>
-						<th>Total</th>
-						<th>Status</th>
-					</thead>
-					<tbody>
-					{{#each products}}
-						<tr>
-							<td>{{title}}</td>
-							<td>{{quantity}}</td>
-							<td>{{price}}</td>
-							<td>{{subtotal}}</td>
-						</tr>
+				{{#if pastorders}}
+					{{#each pastorders}}
+					<h2><small>Order Date: {{formatDate orderDate}}</small></h2>
+					<table class="table">
+						<thead>
+							<th>Cupcake</th>
+							<th>Quantity</th>
+							<th>Price</th>
+							<th>Total</th>
+							<th>Status</th>
+						</thead>
+						<tbody>
+						{{#each products}}
+							<tr>
+								<td>{{title}}</td>
+								<td>{{quantity}}</td>
+								<td class="text-right">{{currency price}}</td>
+								<td class="text-right">{{currency subtotal}}</td>
+							</tr>
+						{{/each}}
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td class="text-right">{{currency grandTotal}}</td>
+								<td>{{status}}</td>
+							</tr>
+						</tbody>
+					</table>
 					{{/each}}
-						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td>{{grandTotal}}</td>
-							<td>{{status}}</td>
-						</tr>
-					</tbody>
-				</table>
-				{{/each}}
+				{{else}}
+					<h2 class="text-center">You have not made any orders yet.</h2>
+				{{/if}}
 			</div>
 		</script>
 		<!--end Past Orders Handlebars-->
@@ -295,6 +299,8 @@
 		<script src="js/lib/handlebars-v3.0.3.js" type="text/javascript"></script>
 		<!-- Bootstrap -->
 		<script src="js/lib/bootstrap.js" type="text/javascript"></script>
+		<!-- Moment -->
+		<script src="js/lib/moment.js" type="text/javascript"></script>
 		<!-- simpleStorage -->
 		<script src="js/lib/simpleStorage.js" type="text/javascript"></script>
 		<!-- RequireJS -->
