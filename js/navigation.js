@@ -45,12 +45,21 @@ define(function() {
 				dataType: 'json',
 				method: 'GET'
 			}).done(function(data, textStatus, jqxhr) {
+				console.log('Past Orders shown');
+
+				// Calculate subtotal(s) and grand total and format date.
+				data.forEach(function(pastOrder) {
+					pastOrder.grandTotal = 0;
+					pastOrder.products.forEach(function(product) {
+						product.subtotal = product.quantity * product.price;
+						pastOrder.grandTotal += product.subtotal;
+					});
+				});
+
 				var pastOrdersTemplate = Handlebars.compile($('#order-history-template').html());
 				$('#page').html(pastOrdersTemplate({
 					pastorders: data
 				}));
-				console.log('Past Orders shown');
-				console.log('pastorder: ', data);
 			}).fail(function(jqshr, textStatus, errorThrown) {
 				console.error(errorThrown);
 			});
