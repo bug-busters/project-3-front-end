@@ -66,7 +66,7 @@ define(function() {
 					else if (prCount > 0 && simpleStorage.get('cart') !== undefined) {
 						// MERGE ME
 						console.log("inside MERGE ME");
-						cart.mergeCarts(data);
+						mergeCarts(data);
 					}
 				}).fail(function(jqshr, textStatus, errorThrown) {
 					console.error(errorThrown);
