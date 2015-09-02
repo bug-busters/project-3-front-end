@@ -127,6 +127,7 @@ define(function() {
 					})
 					.done(function(response) {
 						console.log('Cart updated');
+						// cart.navcart();
 					})
 					.fail(function(response) {
 						console.error(response);
@@ -135,24 +136,69 @@ define(function() {
 			.fail(function(response) {
 				console.error(response);
 			});
-
-
 	};
 
+	// delete cupcakes from local cart
+	var deleteFromLocal = function(sku){
+		console.log('inside deleteFromLocal...sku is: ', sku);
+		var newCart = cart.localCart;
+
+		delete newCart[sku];
+
+		console.log("current new cart: ", newCart);
+		cart.localCart = newCart;
+		console.log("current local cart: ", cart.localCart);
+	};
+
+	// delete cupcakes from database
+	var deleteFromDB = function(){
+		$.ajax(sa + '/cart/' + simpleStorage.get('user_info').user_id, {
+			contentType: 'application/json',
+			processData: false,
+			method: 'PATCH',
+			data: JSON.stringify({
+				products: cart.localCart
+			}),
+			header: {
+				user_id: simpleStorage.get('user_info').user_id
+			}
+		})
+		.done(function(response) {
+			console.log('Cart updated with deletions');
+		})
+		.fail(function(response) {
+			console.error(response);
+		});
+	};
+
+	// click event for delete cupcakes
+	cart.deleteCupcake = function(sku) {
+		console.log('delete button clicked');
+		console.log('sku is: ', sku);
+		deleteFromLocal(sku);
+		deleteFromDB();
+		console.log('cart.localCart: ', cart.localCart);
+		cart.updateCart();
+		cart.navCart();
+	};
 
 	// click event for buy
-	cart.buyHandler = function(button) {
+	cart.buyHandler = function(sku, button) {
 		console.log('buy button clicked');
+		console.log('button: ', button);
+		console.log('sku: ', sku);
 
 		var qt = Number(button.prev('input').val()) + 1;
-		// button.prev('input').val(qt);
+		button.prev('input').val(qt);
 		var price = button.prev('input').data('price');
 		var title = button.data('name');
-		var sku = button.attr('id');
+		var sku = sku;
 
+		console.log("cart.localCart is", cart.localCart);
 
 		// if current clicked product is new to the cart
 		if (!cart.localCart[sku]) {
+			console.log('sku is new in localcart: ', cart.localCart[sku]);
 			var product = {
 				sku: sku,
 				title: title,
@@ -161,6 +207,7 @@ define(function() {
 			};
 			cart.localCart[sku] = product;
 		} else {
+			console.log('sku exists for localcart', cart.localCart[sku].quantity);
 			cart.localCart[sku].quantity = qt;
 		}
 
