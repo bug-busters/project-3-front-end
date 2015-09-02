@@ -1,7 +1,6 @@
 'use strict';
 
 
-
 define(function() {
 
 	var cart = {};
@@ -201,5 +200,84 @@ define(function() {
 	};
 
 
-	return cart;
+	cart.navCart = function() {
+		console.log('inside navcart');
+			// if user is not logged in and the cart is empty
+			if (!simpleStorage.get('user_info') && simpleStorage.get('cart') === undefined) {
+				alert("Your cupcake cart is empty :(");
+				return;
+			}
+
+			// if the user is not logged but the cart is not empty
+			else if (!simpleStorage.get('user_info') && simpleStorage.get('cart')) {
+				// check if user is logged in
+				console.log('CART IS NOT EMPTY simple storage cart:', simpleStorage.get('cart'));
+
+				var cartTemplate = Handlebars.compile($('#simple-storage-cart-template').html());
+				$('#page').html(cartTemplate({
+					cart: simpleStorage.get('cart')
+				}));
+				console.log('Cart shown');
+			}
+
+			// if the user is logged and the simpleStorage cart is empty
+			else if (simpleStorage.get('user_info')) {
+
+				console.log("logged in user");
+				var userDbCart = {};
+
+				$.ajax(sa + '/cart/' + simpleStorage.get('user_info').user_id, {
+					contentType: 'application/json',
+					processData: false,
+					dataType: 'json',
+					method: 'GET'
+				}).done(function(data, textStatus, jqxhr) {
+					console.log("data back from the ajax: ", data);
+					var prCount = Object.keys(data.products).length;
+
+					if (prCount === 0 && simpleStorage.get('cart') === undefined) {
+						alert("Your cupcake cart is empty :(");
+					}
+
+					else if (prCount === 0 && simpleStorage.get('cart') !== undefined) {
+						// display the simpleStorage cart
+						var cartTemplate = Handlebars.compile($('#cart-template').html());
+						$('#page').html(cartTemplate({
+							cart: simpleStorage.get('cart')
+						}));
+					}
+
+					else if (prCount > 0 && simpleStorage.get('cart') === undefined) {
+						console.log("user has cart in db, no simpleStorage cart");
+						for (var sku in data.totals.subtotals) {
+							if (data.totals.subtotals.hasOwnProperty(sku)) {
+								data.products[sku].subtotal = data.totals.subtotals[sku];
+							}
+						}
+						userDbCart = data;
+
+						var cartTemplate = Handlebars.compile($('#cart-template').html());
+						$('#page').html(cartTemplate({
+							cart: userDbCart
+						}));
+					}
+					else if (prCount > 0 && simpleStorage.get('cart') !== undefined) {
+						console.log("inside MERGE ME");
+						mergeCarts(data);
+						userDbCart = data;
+
+						var cartTemplate = Handlebars.compile($('#cart-template').html());
+						$('#page').html(cartTemplate({
+							cart: userDbCart
+						}));
+						console.log('user cart', userDbCart);
+					}
+				}).fail(function(jqshr, textStatus, errorThrown) {
+					console.error(errorThrown);
+				});
+			}
+		};
+
+
+	return  cart;
 });
