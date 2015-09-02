@@ -49,11 +49,11 @@
 						<li id="nav-past-orders">
 							<a>Order History</a>
 						</li>
-						<li id="nav-logout">
-							<a>Logout</a>
-						</li>
 						<li id="nav-account">
 							<a>My Account</a>
+						</li>
+						<li id="nav-logout">
+							<a>Logout</a>
 						</li>
 						<li id="login-register">
 							<!--   <a href="#">Register/Login</a> -->
@@ -198,9 +198,9 @@
 				<h3>
 					<small>{{currency price}}</small>
 				</h3>
-				<input type="number" id="{{sku}}" placeholder="QT" min="0" value="0"></input>
-				<button class="buy" id="{{sku}}">Buy</button>
-				<button class="checkout" id="{{sku}}" href="shopping-cart.html">Checkout</button>
+				<input type="number" data-price="{{currency price}}" data-name="{{title}}" id="{{sku}}" placeholder="QT" min="0" value="0" ></input>
+				<button class="buy" data-name="{{title}}" id="{{sku}}">Buy</button>
+				<button class="checkout" data-name="{{title}}" id="{{sku}}">Checkout</button>
 			</div>
 			{{/each}}
 		</script>
@@ -230,6 +230,39 @@
 							<td></td>
 							<td></td>
 							<td>{{currency cart.totals.grandTotal}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<button id="final-checkout" class="text-center center-block">Checkout</button>
+		</script>
+		<!-- end Cart Handlebars-->
+
+
+		<!-- SimpleStorage Cart Handlebars Template -->
+		<script id="simple-storage-cart-template" type="text/x-handlebars-template">
+			<div class="order-box center-block">
+				<table class="table">
+					<thead>
+						<th>Cupcake</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Sub Total</th>
+					</thead>
+					<tbody>
+						{{#each cart}}
+						<tr>
+							<td>{{title}}</td>
+							<td>{{quantity}}</td>
+							<td>{{price}}</td>
+							<td>$ {{subtotal_calc quantity price}}</td>
+							{{/each}}
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>{{cart.totals.grandTotal}}</td>
 						</tr>
 					</tbody>
 				</table>
