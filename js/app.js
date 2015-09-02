@@ -41,10 +41,6 @@ require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, a
 			}
 		});
 
-		$('#page').on('change', 'input[type="number"]', function(e) {
-			cartModule.onChangeValue($(this));
-		});
-
 		// user register
 		$('#register').on('click', function(event) {
 			authModule.register(event);
@@ -54,22 +50,24 @@ require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, a
 		$('#login').on('click', function(event) {
 			authModule.login(event);
 		});
+
 		// user log out
-		// TODO Check if they are logged in
 		// TODO Delete session
 		$('#nav-logout').on('click', function(event) {
 			authModule.logout();
 		});
 
+		// show cart on cart navbar click
 		$('#nav-cart').on('click', function(event) {
-			// navModule.navCart();
 			cartModule.navCart();
 		});
 
+		// show past orders on pastorders navbar click
 		$('#nav-past-orders').on('click', function(event) {
 			navModule.navPastOrders();
 		});
 
+		// show user account on my account navbar click
 		$('#nav-account').on('click', function(event) {
 			navModule.navAccount();
 		});
@@ -81,7 +79,9 @@ require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, a
 
 		// populate simpleStorage cart
 		$('#page').on('click', '.buy', function(event) {
-			cartModule.buyHandler($(this));
+			var sku = $(this).attr('id');
+			var button = $(this);
+			cartModule.buyHandler(sku, button);
 		});
 
 		// populate simpleStorage cart
@@ -91,7 +91,13 @@ require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, a
 
 		// prompt for login and update cart
 		$('#page').on('click', '.checkout', function(event) {
-			navModule.navCart();
+			cartModule.navCart();
+		});
+
+		// delete cupcakes from cart
+		$('#page').on('click', 'table > tbody > tr > td', function(event) {
+			var sku = $(this).attr('id');
+			cartModule.deleteCupcake(sku);
 		});
 
 		$('#stripe-test').on('click', function(event) {
