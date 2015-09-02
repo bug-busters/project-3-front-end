@@ -1,10 +1,13 @@
 'use strict';
 
+
+
 define(function() {
 
 	var cart = {};
 
 	cart.localCart = {};
+
 
 	var mergeCarts = function(dbCart) {
 
@@ -16,6 +19,7 @@ define(function() {
 		var products = dbCart.products;
 		console.log("database products: ", products);
 
+
 		for (var i = 0; i < productsKeys.length; i++) {
 
 			var key = productsKeys[i];
@@ -23,14 +27,20 @@ define(function() {
 			console.log("Object.keys(storageCart):", Object.keys(storageCart));
 			console.log("Object.keys(storageCart).indexOf(key)", Object.keys(storageCart).indexOf(key));
 
-			if (Object.keys(storageCart).indexOf(key) >= 0) {
-				console.log("storageCart['170431']: ", storageCart["170431"]);
 
-				// update the quantity in the storageCart;
-				var newQt = Number(storageCart[key].quantity) + Number(products[key].quantity);
+			if (Object.keys(storageCart).indexOf(key) >= 0) {
+				var newQt = 1 + Number(products[key].quantity);
 				console.log("newQt", newQt);
 
 				storageCart[key].quantity = newQt;
+
+				// FIX ME--- on buy click. all inputs get filled with cart vals.
+				// but maybe this should happen on login?
+				// show new qt per item in coresponding input with id-sku
+				var id = '#' + key;
+				id.toString();
+				$(id).val(storageCart[key].quantity);
+
 			}
 			else {
 				// create new simple storageCart entry and save it in simpleStorage
@@ -44,9 +54,16 @@ define(function() {
 
 				cart.localCart = storageCart;
 				console.log("current storage cart: ", storageCart[key]);
+
+
+				// FIX ME--- on buy click. all inputs get filled with cart vals.
+				// but maybe this should happen on login?
+				// show new qt per item in coresponding input with id-sku
+				var id = '#' + key;
+				id.toString();
+				$(id).val(products[key].quantity);
+
 			}
-
-
 		}
 	};
 
@@ -76,6 +93,7 @@ define(function() {
 				console.error(response);
 			});
 	};
+
 	// update cart in database
 	cart.updateCart = function() {
 		console.log("inside update cart");
@@ -122,45 +140,13 @@ define(function() {
 
 	};
 
-	// change value for HTML input element
-	cart.onChangeValue = function(element) {
-
-		var sku = $(element).attr('id');
-		var qt = $(element).val();
-		console.log('qt', qt);
-		var title = $(element).data('name');
-		var price = $(element).data('price').substring(1, $(element).data('price').length);
-
-		// if current clicked product is new to the cart
-		if (!cart.localCart[sku]) {
-			var product = {
-				'sku': sku,
-				'title': $(element).data('name'),
-				'price': $(element).data('price'),
-				'quantity': Number(qt)
-			};
-			cart.localCart[sku] = product;
-		} else {
-			cart.localCart[sku].quantity = qt
-			;
-		}
-
-		//update database cart only if the user is logged in
-		if (simpleStorage.get('user_info')) {
-			if (!simpleStorage.get('user_info').hasCart) {
-				this.createCart();
-			}
-			console.log("before update cart is called");
-			this.updateCart();
-		}
-	};
 
 	// click event for buy
 	cart.buyHandler = function(button) {
 		console.log('buy button clicked');
 
 		var qt = Number(button.prev('input').val()) + 1;
-		button.prev('input').val(qt);
+		// button.prev('input').val(qt);
 		var price = button.prev('input').data('price');
 		var title = button.data('name');
 		var sku = button.attr('id');
@@ -186,6 +172,7 @@ define(function() {
 			}
 			this.updateCart();
 		}
+
 	};
 
 	cart.finalCheckoutHandler = function() {
