@@ -52,7 +52,8 @@ define(['cart'], function(cartModule) {
         $('#nav-account').show(); // show account info button
         $('#login-register').hide(); // hide login button
         $('#nav-past-orders').show(); // show order history nav link
-        console.log('login done. data: ' + data);
+
+        console.log('login done. data: ', data);
         simpleStorage.set('user_info', data);
         // automatically log user in when they register
         console.log(simpleStorage.get('user_info'));
@@ -60,6 +61,7 @@ define(['cart'], function(cartModule) {
         if (!simpleStorage.get('user_info').hasCart) {
           cartModule.createCart();
         }
+
       }).fail(function(jqshr, textStatus, errorThrown) {
         console.log(jqshr);
         alert('Login failed. Please use correct email and password.');
