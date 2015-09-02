@@ -157,16 +157,14 @@ define(function() {
 
 	// click event for buy
 	cart.buyHandler = function(button) {
-		console.log('purchase clicked');
-
+		console.log('buy button clicked');
 
 		var qt = Number(button.prev('input').val()) + 1;
 		button.prev('input').val(qt);
-		var qtVal = qt.val();
-		console.log("qtVal: ", button.prev('input').val());
 		var price = button.prev('input').data('price');
 		var title = button.data('name');
 		var sku = button.attr('id');
+
 
 		// if current clicked product is new to the cart
 		if (!cart.localCart[sku]) {
@@ -174,11 +172,11 @@ define(function() {
 				sku: sku,
 				title: title,
 				price: price,
-				quantity: qtVal
+				quantity: Number(qt)
 			};
 			cart.localCart[sku] = product;
 		} else {
-			cart.localCart[sku].quantity = qtVal;
+			cart.localCart[sku].quantity = qt;
 		}
 
 		//update database cart only if the user is logged in
@@ -214,6 +212,7 @@ define(function() {
 		// call STRIPE CHECKOUT FUNCTIONS IF USER LOGGED IN
 		$('#checkoutModal').modal('show');
 	};
+
 
 	return cart;
 });
