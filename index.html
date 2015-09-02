@@ -215,6 +215,7 @@
 						<th>Quantity</th>
 						<th>Price</th>
 						<th>Total</th>
+						<th></th>
 					</thead>
 					<tbody>
 						{{#each cart.products}}
@@ -223,6 +224,7 @@
 							<td>{{quantity}}</td>
 							<td>{{currency price}}</td>
 							<td>{{currency subtotal}}</td>
+							<td id="{{sku}}"><button class="deleteCupcake">Delete</button></td>
 							{{/each}}
 						</tr>
 						<tr>
@@ -248,6 +250,7 @@
 						<th>Quantity</th>
 						<th>Price</th>
 						<th>Sub Total</th>
+						<th></th>
 					</thead>
 					<tbody>
 						{{#each cart}}
@@ -256,6 +259,7 @@
 							<td>{{quantity}}</td>
 							<td>{{price}}</td>
 							<td>$ {{subtotal_calc quantity price}}</td>
+							<td id="{{sku}}"><button class="deleteCupcake" data-name="{{title}}" id="{{sku}}">Delete</button></td>
 							{{/each}}
 						</tr>
 						<tr>
