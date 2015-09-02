@@ -7,7 +7,7 @@ require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, a
 
 	// Handlebars helper function for formatting currency.
 	Handlebars.registerHelper('currency', function(price) {
-		return '$' + price.toFixed(2);
+		if(price) return '$' + price.toFixed(2);
 	});
 
 	// Handlebars helper function for formatting date.
@@ -15,8 +15,10 @@ require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, a
 		return moment(isoDate).format('YYYY-MM-DD');
 	});
 
-	console.log('cart module: ', cartModule);
-	console.log('auth module: ', authModule);
+	Handlebars.registerHelper('subtotal_calc', function(quantity, price) {
+		var pr = price.substring(1, price.length);
+		return (Number(quantity) * Number(pr)).toFixed(2);
+	});
 
 	$(document).ready(function() {
 		var localCart = {};
@@ -40,7 +42,6 @@ require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, a
 		});
 
 		$('#page').on('change', 'input[type="number"]', function(e) {
-			console.log('e: ', e);
 			cartModule.onChangeValue($(this));
 		});
 
