@@ -62,7 +62,8 @@ require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, a
 		});
 
 		$('#nav-cart').on('click', function(event) {
-			navModule.navCart();
+			// navModule.navCart();
+			cartModule.navCart();
 		});
 
 		$('#nav-past-orders').on('click', function(event) {
