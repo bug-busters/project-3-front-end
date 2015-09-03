@@ -1,7 +1,7 @@
 'use strict';
 // url root
 
-var sa = 'https://syntsugar.herokuapp.com';
+var sa = 'https://localhost:8000';
 
 require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, authModule, navModule, stripeModule) {
 
@@ -108,6 +108,7 @@ require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, a
 	});
 	//--------end document ready-------------
 
+
 	// load products on index.html
 	$.ajax(sa + '/products', {
 		contentType: 'application/json',
@@ -115,7 +116,7 @@ require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, a
 		dataType: 'json',
 		method: 'GET'
 	}).done(function(data, textStatus, jqxhr) {
-		// console.log(data);
+		console.log(data);
 		var productsIndexTemplate = Handlebars.compile($('#products-index-template').html());
 		var productsList = productsIndexTemplate({
 			products: data
