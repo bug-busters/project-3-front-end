@@ -21,6 +21,8 @@
 - [User Stories] (planning-docs/user-stories.txt)
 - [Schedule] (planning-docs/timeline.txt)
 
+##### Back End repository
+- [Syntactic Sugar Back End] (http://bug-busters.github.io/project-3-back-end/)
 
 Created for Project 3 in General Assembly Boston's Web Development Immersive course.
 Team GA Bug Busters
