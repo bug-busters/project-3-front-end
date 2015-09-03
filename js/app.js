@@ -1,7 +1,7 @@
 'use strict';
 // url root
 
-var sa = 'https://localhost:8000';
+var sa = 'http://localhost:8000';
 
 require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, authModule, navModule, stripeModule) {
 
