@@ -1,7 +1,7 @@
 'use strict';
 // url root
 
-var sa = 'https://syntsugar.herokuapp.com/';
+var sa = 'https://syntsugar.herokuapp.com';
 
 require(['cart', 'authenticate', 'navigation', 'stripe'], function(cartModule, authModule, navModule, stripeModule) {
 
