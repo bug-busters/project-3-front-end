@@ -250,13 +250,12 @@ define(function() {
 	cart.navCart = function() {
 		console.log('inside navcart');
 			// if user is not logged in and the cart is empty
-			if (!simpleStorage.get('user_info') && simpleStorage.get('cart') === undefined) {
+			if (!simpleStorage.get('user_info') && !jQuery.isEmptyObject(cart)) {
 				alert("Your cupcake cart is empty :(");
 				return;
 			}
-
 			// if the user is not logged but the cart is not empty
-			else if (!simpleStorage.get('user_info') && simpleStorage.get('cart')) {
+			else if (!simpleStorage.get('user_info') && jQuery.isEmptyObject(cart)) {
 				// check if user is logged in
 				console.log('CART IS NOT EMPTY simple storage cart:', simpleStorage.get('cart'));
 
