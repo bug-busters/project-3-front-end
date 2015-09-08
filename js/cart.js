@@ -52,7 +52,6 @@ define(function() {
 				};
 
 				cart.localCart = storageCart;
-				simpleStorage.set('cart', storageCart);
 				console.log("current storage cart: ", storageCart[key]);
 
 
@@ -65,6 +64,8 @@ define(function() {
 
 			}
 		}
+		simpleStorage.set('cart', cart.localCart);
+		console.log('simpleStorage cart: ', simpleStorage.get('cart'));
 	};
 
 	// create new cart in database
