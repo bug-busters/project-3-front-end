@@ -52,6 +52,7 @@ define(function() {
 				};
 
 				cart.localCart = storageCart;
+				simpleStorage.set('cart', storageCart);
 				console.log("current storage cart: ", storageCart[key]);
 
 
@@ -250,12 +251,12 @@ define(function() {
 	cart.navCart = function() {
 		console.log('inside navcart');
 			// if user is not logged in and the cart is empty
-			if (!simpleStorage.get('user_info') && !jQuery.isEmptyObject(cart)) {
+			if (!simpleStorage.get('user_info') && !simpleStorage.get('cart')) {
 				alert("Your cupcake cart is empty :(");
 				return;
 			}
 			// if the user is not logged but the cart is not empty
-			else if (!simpleStorage.get('user_info') && jQuery.isEmptyObject(cart)) {
+			else if (!simpleStorage.get('user_info') && simpleStorage.get('cart')) {
 				// check if user is logged in
 				console.log('CART IS NOT EMPTY simple storage cart:', simpleStorage.get('cart'));
 
