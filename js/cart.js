@@ -40,8 +40,6 @@ define(function() {
 				id.toString();
 				$(id).val(storageCart[key].quantity);
 
-				simpleStorage.set('cart', storageCart);
-				console.log('simpleStorage cart: ', simpleStorage.get('cart'));
 
 			}
 			else {
@@ -56,8 +54,6 @@ define(function() {
 
 				cart.localCart = storageCart;
 				console.log("current storage cart: ", storageCart[key]);
-				simpleStorage.set('cart', cart.localCart);
-				console.log('simpleStorage cart: ', simpleStorage.get('cart'));
 
 				// FIX ME--- on buy click. all inputs get filled with cart vals.
 				// but maybe this should happen on login?
@@ -222,6 +218,9 @@ define(function() {
 			}
 			this.updateCart();
 		}
+
+		simpleStorage.set('cart', cart.localCart);
+		console.log('simpleStorage cart: ', simpleStorage.get('cart'));
 
 	};
 
