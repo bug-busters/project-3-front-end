@@ -40,6 +40,7 @@ define(function() {
 				id.toString();
 				$(id).val(storageCart[key].quantity);
 
+
 			}
 			else {
 				// create new simple storageCart entry and save it in simpleStorage
@@ -53,7 +54,6 @@ define(function() {
 
 				cart.localCart = storageCart;
 				console.log("current storage cart: ", storageCart[key]);
-
 
 				// FIX ME--- on buy click. all inputs get filled with cart vals.
 				// but maybe this should happen on login?
@@ -219,6 +219,9 @@ define(function() {
 			this.updateCart();
 		}
 
+		simpleStorage.set('cart', cart.localCart);
+		console.log('simpleStorage cart: ', simpleStorage.get('cart'));
+
 	};
 
 	cart.finalCheckoutHandler = function() {
@@ -250,11 +253,10 @@ define(function() {
 	cart.navCart = function() {
 		console.log('inside navcart');
 			// if user is not logged in and the cart is empty
-			if (!simpleStorage.get('user_info') && simpleStorage.get('cart') === undefined) {
+			if (!simpleStorage.get('user_info') && !simpleStorage.get('cart')) {
 				alert("Your cupcake cart is empty :(");
 				return;
 			}
-
 			// if the user is not logged but the cart is not empty
 			else if (!simpleStorage.get('user_info') && simpleStorage.get('cart')) {
 				// check if user is logged in
